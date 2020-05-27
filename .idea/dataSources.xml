@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="eplanning-dinkes-pontianak@localhost [2]" uuid="8d95093d-a222-40f1-931f-7fa9d3b0e0a1">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:33060/eplanning-dinkes-pontianak</jdbc-url>
+    </data-source>
+  </component>
+</project>

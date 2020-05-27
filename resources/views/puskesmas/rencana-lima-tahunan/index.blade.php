@@ -1,0 +1,44 @@
+@extends("layouts.app")
+
+@section("content")
+    <div class="card">
+        <div class="card-body">
+            @include("layouts._messages")
+
+            <table class="table table-sm table-striped">
+                <thead class="thead thead-dark">
+                    <tr>
+                        <th class="text-center"> # </th>
+                        <th> Tanggal Pembuatan </th>
+                        <th class="text-center"> Aksi </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach($rencana_lima_tahunan_list as $rencana_lima_tahunan)
+                        <tr>
+                            <td class="text-center"> {{ $loop->iteration }} </td>
+                            <td> {{ \App\Support\Formatter::fancyDatetime($rencana_lima_tahunan->waktu_pembuatan) }} </td>
+                            <td class="text-center">
+                                <a class="btn btn-dark" href="{{ route("puskesmas.rencana-lima-tahunan.edit", $rencana_lima_tahunan)  }}">
+                                    Sunting
+                                </a>
+
+                                <form class="d-inline-block"
+                                      action="{{ route('puskesmas.rencana-lima-tahunan.destroy', $rencana_lima_tahunan) }}"
+                                      method="post">
+                                    @csrf
+                                    @method("DELETE")
+                                    <button class="btn btn-danger"
+                                            type="submit">
+                                        Hapus
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+@endsection
