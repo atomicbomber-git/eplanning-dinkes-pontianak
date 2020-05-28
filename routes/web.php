@@ -17,9 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::redirect("/", "/login");
 
 Route::group([
     "prefix" => "/puskesmas",

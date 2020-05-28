@@ -21,7 +21,10 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/home';
+    public static function defaultRoute()
+    {
+        return route("puskesmas.rencana-lima-tahunan.index");
+    }
 
     /**
      * Define your route model bindings, pattern filters, etc.

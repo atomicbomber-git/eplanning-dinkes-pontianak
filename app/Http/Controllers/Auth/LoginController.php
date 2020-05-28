@@ -23,7 +23,7 @@ class LoginController extends Controller
 
     public function redirectTo()
     {
-        return route("rencana-lima-tahunan.index");
+        return RouteServiceProvider::defaultRoute();
     }
 
     /**

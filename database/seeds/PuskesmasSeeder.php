@@ -26,6 +26,7 @@ class PuskesmasSeeder extends Seeder
 
             $username_slash_password = "puskesmas_{$i}";
             $user = factory(User::class)->create([
+                "name" => "Admin " . \Illuminate\Support\Str::title($username_slash_password),
                 "username" => $username_slash_password,
                 "password" => Hash::make($username_slash_password),
             ]);

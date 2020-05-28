@@ -11,4 +11,9 @@ class Formatter
     {
         return (new Date($datetime))->format("l, d F Y H:i:s");
     }
+
+    public static function normalizeNumber($number)
+    {
+        return rtrim(rtrim($number, "0"), ".");
+    }
 }

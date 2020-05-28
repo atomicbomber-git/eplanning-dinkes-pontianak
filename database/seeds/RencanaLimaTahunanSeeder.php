@@ -26,7 +26,7 @@ class RencanaLimaTahunanSeeder extends Seeder
 
         foreach ($puskesmases as $puskesmas) {
             $rencana_lima_tahunan = RencanaLimaTahunan::query()->create([
-                "waktu_pembuatan" => Carbon::now()->addMinutes(rand(0, 60 * 24 * 30)),
+                "waktu_pembuatan" => Carbon::now()->subMinutes(rand(0, 60 * 24 * 30)),
                 "puskesmas_id" => $puskesmas->id,
             ]);
 

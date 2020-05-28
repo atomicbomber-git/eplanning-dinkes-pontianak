@@ -34,6 +34,12 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
 
+
+                        @auth
+                            <a class="nav-link active"
+                               href="{{ route("puskesmas.rencana-lima-tahunan.index")}}"> Rencana Lima Tahunan
+                            </a>
+                        @endauth
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -72,19 +78,9 @@
             </div>
         </nav>
 
-        <main class="py-4 container">
+        <main class="py-4 container-fluid">
             <div class="row">
-                <div class="col-md-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet animi illum modi nam nostrum, porro quibusdam repudiandae ullam! A aperiam debitis dignissimos distinctio ea expedita harum maxime porro possimus saepe?
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-9">
+                <div class="col-md-12">
                     @yield('content')
                 </div>
             </div>

@@ -1,6 +1,13 @@
 @extends("layouts.app")
 
 @section("content")
+    <div class="d-flex justify-content-end py-3">
+        <a class="btn btn-dark" href="{{ route("puskesmas.rencana-lima-tahunan.create") }}">
+            Tambah Rencana Lima Tahunan
+        </a>
+    </div>
+
+
     <div class="card">
         <div class="card-body">
             @include("layouts._messages")
@@ -21,7 +28,7 @@
                             <td> {{ \App\Support\Formatter::fancyDatetime($rencana_lima_tahunan->waktu_pembuatan) }} </td>
                             <td class="text-center">
                                 <a class="btn btn-dark" href="{{ route("puskesmas.rencana-lima-tahunan.edit", $rencana_lima_tahunan)  }}">
-                                    Sunting
+                                    Sunting / Lihat
                                 </a>
 
                                 <form class="d-inline-block"
