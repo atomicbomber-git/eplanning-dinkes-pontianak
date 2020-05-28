@@ -21,7 +21,7 @@ class CreatePuskesmasTable extends Migration
                 ->cascadeOnDelete();
 
             $table->string('nama')->unique();
-            $table->text('alamat')->unique();
+            $table->text('alamat');
             $table->timestamps();
         });
     }
