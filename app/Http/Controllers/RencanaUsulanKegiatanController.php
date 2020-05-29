@@ -146,7 +146,7 @@ class RencanaUsulanKegiatanController extends Controller
     )
     {
         $data = $request->validate([
-            "waktu_pembuatan" => ["required", "date_format:Y-m-d\TH:i:s"],
+            "waktu_pembuatan" => ["required", "date"],
             "item_rencana_usulan_kegiatan_list.*.id" => ["required", "exists:item_rencana_usulan_kegiatan,id"],
             "item_rencana_usulan_kegiatan_list.*.kegiatan" => ["nullable", "string"],
             "item_rencana_usulan_kegiatan_list.*.tujuan" => ["nullable", "string"],

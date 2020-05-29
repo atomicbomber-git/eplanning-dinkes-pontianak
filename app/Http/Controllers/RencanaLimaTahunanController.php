@@ -6,7 +6,6 @@ use App\Constants\MessageState;
 use App\ItemRencanaLimaTahunan;
 use App\RencanaLimaTahunan;
 use App\UnitPuskesmas;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -59,11 +58,12 @@ class RencanaLimaTahunanController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Request $request
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse|Response
      */
     public function store(Request $request)
     {
         $data = $request->validate([
+            "waktu_pembuatan" => ["required", "date"],
             "item_rencana_lima_tahunan_list.*.upaya_kesehatan_id" => ["required", "exists:upaya_kesehatan,id"],
             "item_rencana_lima_tahunan_list.*.tujuan" => ["nullable", "string"],
             "item_rencana_lima_tahunan_list.*.indikator_kinerja" => ["nullable", "string"],
@@ -79,7 +79,7 @@ class RencanaLimaTahunanController extends Controller
 
         $rencana_lima_tahunan = RencanaLimaTahunan::query()->create([
             "puskesmas_id" => auth()->user()->puskesmas->id,
-            "waktu_pembuatan" => now(),
+            "waktu_pembuatan" => $data["waktu_pembuatan"],
         ]);
 
         foreach ($data["item_rencana_lima_tahunan_list"] as $data_item_rencana_lima_tahunan) {
@@ -119,14 +119,14 @@ class RencanaLimaTahunanController extends Controller
     public function edit(RencanaLimaTahunan $rencana_lima_tahunan)
     {
         $rencana_lima_tahunan->load([
-           "item_rencana_lima_tahunan_list",
-           "item_rencana_lima_tahunan_list.upaya_kesehatan:id,nama,unit_puskesmas_id",
+            "item_rencana_lima_tahunan_list",
+            "item_rencana_lima_tahunan_list.upaya_kesehatan:id,nama,unit_puskesmas_id",
         ]);
 
         $unit_puskesmas_list = UnitPuskesmas::query()
             ->with([
                 "upaya_kesehatan_list",
-                "upaya_kesehatan_list.item_rencana_lima_tahunan" => function (HasOne $hasOne) use($rencana_lima_tahunan) {
+                "upaya_kesehatan_list.item_rencana_lima_tahunan" => function (HasOne $hasOne) use ($rencana_lima_tahunan) {
                     $hasOne->where("rencana_lima_tahunan_id", $rencana_lima_tahunan->id);
                 },
             ])
@@ -143,11 +143,12 @@ class RencanaLimaTahunanController extends Controller
      *
      * @param Request $request
      * @param RencanaLimaTahunan $rencana_lima_tahunan
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse|Response
      */
     public function update(Request $request, RencanaLimaTahunan $rencana_lima_tahunan)
     {
         $data = $request->validate([
+            "waktu_pembuatan" => ["required", "date"],
             "item_rencana_lima_tahunan_list.*.id" => ["required"],
             "item_rencana_lima_tahunan_list.*.tujuan" => ["nullable", "string"],
             "item_rencana_lima_tahunan_list.*.indikator_kinerja" => ["nullable", "string"],
@@ -162,6 +163,10 @@ class RencanaLimaTahunanController extends Controller
         ]);
 
         DB::beginTransaction();
+
+        $rencana_lima_tahunan->update([
+            "waktu_pembuatan" => $data["waktu_pembuatan"],
+        ]);
 
         foreach ($data["item_rencana_lima_tahunan_list"] as $data_item_rencana_lima_tahunan) {
             ItemRencanaLimaTahunan::query()->where([
@@ -184,7 +189,7 @@ class RencanaLimaTahunanController extends Controller
      * Remove the specified resource from storage.
      *
      * @param RencanaLimaTahunan $rencana_lima_tahunan
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse|Response
      */
     public function destroy(RencanaLimaTahunan $rencana_lima_tahunan)
     {

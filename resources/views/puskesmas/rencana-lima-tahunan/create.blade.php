@@ -13,6 +13,12 @@
                   action="{{ route("puskesmas.rencana-lima-tahunan.store") }}">
                 @csrf
 
+                <x-input
+                    field="waktu_pembuatan"
+                    label="Waktu Pembuatan"
+                    type="datetime-local"
+                ></x-input>
+
                 <div class="table-responsive">
                     <table class="table table-sm">
                         <thead class="thead thead-dark">

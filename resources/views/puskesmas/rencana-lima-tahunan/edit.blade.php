@@ -14,6 +14,13 @@
                 @method("PATCH")
                 @csrf
 
+                <x-input
+                    field="waktu_pembuatan"
+                    label="Waktu Pembuatan"
+                    type="datetime-local"
+                    :value="$rencana_lima_tahunan->waktu_pembuatan->format('Y-m-d\TH:i:s')"
+                ></x-input>
+
                 <div class="table-responsive">
                     <table class="table table-sm">
                         <thead class="thead thead-dark">
