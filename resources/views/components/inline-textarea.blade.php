@@ -17,8 +17,8 @@
     name="{{ $arrayName }}[{{ $rowId }}][{{ $field }}]"
 >{{
     isset($item) ?
-        old("{$arrayName}[{$rowId}][{$field}]", $item->$field) :
-        old("{$arrayName}[{$rowId}][{$field}]")
+        old("{$arrayName}.{$rowId}.{$field}", $item->$field) :
+        old("{$arrayName}.{$rowId}.{$field}")
 }}</textarea>
 @error("{$arrayName}.{$rowId}.{$field}")
 <div class="invalid-feedback">

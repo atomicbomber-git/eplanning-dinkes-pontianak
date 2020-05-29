@@ -3,6 +3,10 @@
 @section("content")
     <h1> Tambah Rencana Usulan Kegiatan </h1>
 
+    <pre>
+        {{ json_encode($errors->all(), JSON_PRETTY_PRINT)  }}
+    </pre>
+
     <div class="card">
         <div class="card-body">
             @include("layouts._messages")
@@ -68,8 +72,8 @@
                                         ></x-inline-textarea>
 
                                         <input
-                                            name="item_rencana_usulan_kegiatan_list[{{ $upaya_kesehatan->item_rencana_usulan_kegiatan->id }}][id]"
-                                            value="{{ $upaya_kesehatan->item_rencana_usulan_kegiatan->id }}"
+                                            name="item_rencana_usulan_kegiatan_list[{{ $loop->parent->index . $loop->index  }}][upaya_kesehatan_id]"
+                                            value="{{ $upaya_kesehatan->id }}"
                                             type="hidden"
                                         >
                                     </td>

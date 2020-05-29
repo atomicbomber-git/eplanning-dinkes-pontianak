@@ -7,6 +7,7 @@ use App\ItemRencanaUsulanKegiatan;
 use App\RencanaUsulanKegiatan;
 use App\UnitPuskesmas;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
@@ -54,7 +55,38 @@ class RencanaUsulanKegiatanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            "waktu_pembuatan" => ["required", "date"],
+            "item_rencana_usulan_kegiatan_list.*.upaya_kesehatan_id" => ["required", "exists:upaya_kesehatan,id"],
+            "item_rencana_usulan_kegiatan_list.*.kegiatan" => ["nullable", "string"],
+            "item_rencana_usulan_kegiatan_list.*.tujuan" => ["nullable", "string"],
+            "item_rencana_usulan_kegiatan_list.*.sasaran" => ["nullable", "string"],
+            "item_rencana_usulan_kegiatan_list.*.target_sasaran" => ["nullable", "string"],
+            "item_rencana_usulan_kegiatan_list.*.penanggung_jawab" => ["nullable", "string"],
+            "item_rencana_usulan_kegiatan_list.*.kebutuhan_sumber_daya" => ["nullable", "string"],
+            "item_rencana_usulan_kegiatan_list.*.mitra_kerja" => ["nullable", "string"],
+            "item_rencana_usulan_kegiatan_list.*.waktu_pelaksanaan" => ["nullable", "string"],
+            "item_rencana_usulan_kegiatan_list.*.kebutuhan_anggaran" => ["required", "numeric", "gte:0"],
+            "item_rencana_usulan_kegiatan_list.*.indikator_kinerja" => ["nullable", "string"],
+            "item_rencana_usulan_kegiatan_list.*.sumber_pembiayaan" => ["nullable", "string"],
+        ]);
+
+        DB::beginTransaction();
+
+        $rencana_usulan_kegiatan = RencanaUsulanKegiatan::query()->create([
+            "waktu_pembuatan" => $data["waktu_pembuatan"],
+        ]);
+
+        foreach ($data["item_rencana_usulan_kegiatan_list"] as $data_item_rencana_usulan_kegiatan) {
+            ItemRencanaUsulanKegiatan::query()
+                ->create(array_merge($data_item_rencana_usulan_kegiatan, [
+                    "rencana_usulan_kegiatan_id" => $rencana_usulan_kegiatan->id,
+                ]));
+        }
+
+        DB::commit();
+
+        return $request;
     }
 
     /**
@@ -101,7 +133,7 @@ class RencanaUsulanKegiatanController extends Controller
      * @param Request $request
      * @param RencanaUsulanKegiatan $rencana_usulan_kegiatan
      *
-     * @return \Illuminate\Http\RedirectResponse|Response
+     * @return RedirectResponse|Response
      */
     public function update(Request $request, RencanaUsulanKegiatan $rencana_usulan_kegiatan
     )

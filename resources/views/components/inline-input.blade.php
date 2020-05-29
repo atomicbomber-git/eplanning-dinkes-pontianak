@@ -15,8 +15,8 @@
     name="{{ $arrayName }}[{{ $rowId }}][{{ $field }}]"
     value="{{
         isset($item) ?
-            old("{$arrayName}[{$rowId}][{$field}]", $item->$field) :
-            old("{$arrayName}[{$rowId}][{$field}]")
+            old("{$arrayName}.{$rowId}.{$field}", $item->$field) :
+            old("{$arrayName}.{$rowId}.{$field}")
 }}"
     {{ $attributes }}
 >
