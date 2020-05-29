@@ -1,11 +1,12 @@
 @extends("layouts.app")
 
 @section("content")
-    <h1> Tambah Rencana Usulan Kegiatan </h1>
+    <div class="container">
+        <h1> Tambah Rencana Usulan Kegiatan </h1>
+    </div>
 
-    <pre>
-        {{ json_encode($errors->all(), JSON_PRETTY_PRINT)  }}
-    </pre>
+    div
+
 
     <div class="card">
         <div class="card-body">

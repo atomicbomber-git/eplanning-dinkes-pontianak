@@ -74,6 +74,7 @@ class RencanaUsulanKegiatanController extends Controller
         DB::beginTransaction();
 
         $rencana_usulan_kegiatan = RencanaUsulanKegiatan::query()->create([
+            "puskesmas_id" => auth()->user()->puskesmas->id,
             "waktu_pembuatan" => $data["waktu_pembuatan"],
         ]);
 
@@ -86,7 +87,13 @@ class RencanaUsulanKegiatanController extends Controller
 
         DB::commit();
 
-        return $request;
+        return redirect()->route("puskesmas.rencana-usulan-kegiatan.index")
+            ->with("messages", [
+                [
+                    "content" => __("messages.create.success"),
+                    "state" => MessageState::STATE_SUCCESS
+                ]
+            ]);
     }
 
     /**
