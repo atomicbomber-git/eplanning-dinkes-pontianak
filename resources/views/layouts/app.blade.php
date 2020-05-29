@@ -33,12 +33,15 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
-
                         @auth
                             <a class="nav-link active"
                                href="{{ route("puskesmas.rencana-lima-tahunan.index")}}"> Rencana Lima Tahunan
                             </a>
+
+                            <a class="nav-link active"
+                               href="{{ route("puskesmas.rencana-usulan-kegiatan.index")}}"> Rencana Usulan Kegiatan
+                            </a>
+
                         @endauth
                     </ul>
 

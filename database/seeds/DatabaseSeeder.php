@@ -14,5 +14,6 @@ class DatabaseSeeder extends Seeder
          $this->call(PuskesmasSeeder::class);
          $this->call(UnitPuskesmasSeeder::class);
          $this->call(RencanaLimaTahunanSeeder::class);
+         $this->call(RencanaUsulanKegiatanSeeder::class);
     }
 }

@@ -22,6 +22,11 @@ class UpayaKesehatan extends Model
         return $this->hasOne(ItemRencanaLimaTahunan::class);
     }
 
+    public function item_rencana_usulan_kegiatan(): HasOne
+    {
+        return $this->hasOne(ItemRencanaUsulanKegiatan::class);
+    }
+
     public function item_rencana_lima_tahunan_list(): HasMany
     {
         return $this->hasMany(ItemRencanaLimaTahunan::class);

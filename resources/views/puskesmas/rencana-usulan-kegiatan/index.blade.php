@@ -2,13 +2,13 @@
 
 @section("content")
     <div class="d-flex justify-content-end py-3">
-        <a class="btn btn-dark" href="{{ route("puskesmas.rencana-lima-tahunan.create") }}">
-            Tambah Rencana Lima Tahunan
+        <a class="btn btn-dark" href="{{ route("puskesmas.rencana-usulan-kegiatan.create") }}">
+            Tambah Rencana Usulan Kegiatan
         </a>
     </div>
 
     <h1>
-        Rencana Lima Tahunan
+        Rencana Usulan Kegiatan
     </h1>
 
     <div class="card">
@@ -25,17 +25,17 @@
                 </thead>
 
                 <tbody>
-                    @foreach($rencana_lima_tahunan_list as $rencana_lima_tahunan)
+                    @foreach($rencana_usulan_kegiatan_list as $rencana_usulan_kegiatan)
                         <tr>
                             <td class="text-center"> {{ $loop->iteration }} </td>
-                            <td> {{ \App\Support\Formatter::fancyDatetime($rencana_lima_tahunan->waktu_pembuatan) }} </td>
+                            <td> {{ \App\Support\Formatter::fancyDatetime($rencana_usulan_kegiatan->waktu_pembuatan) }} </td>
                             <td class="text-center">
-                                <a class="btn btn-dark" href="{{ route("puskesmas.rencana-lima-tahunan.edit", $rencana_lima_tahunan)  }}">
+                                <a class="btn btn-dark" href="{{ route("puskesmas.rencana-usulan-kegiatan.edit", $rencana_usulan_kegiatan)  }}">
                                     Sunting / Lihat
                                 </a>
 
                                 <form class="d-inline-block"
-                                      action="{{ route('puskesmas.rencana-lima-tahunan.destroy', $rencana_lima_tahunan) }}"
+                                      action="{{ route('puskesmas.rencana-usulan-kegiatan.destroy', $rencana_usulan_kegiatan) }}"
                                       method="post">
                                     @csrf
                                     @method("DELETE")
