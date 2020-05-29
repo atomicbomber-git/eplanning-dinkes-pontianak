@@ -10,6 +10,10 @@ class RencanaUsulanKegiatan extends Model
     protected $table = "rencana_usulan_kegiatan";
     protected $guarded = [];
 
+    protected $dates = [
+        "waktu_pembuatan",
+    ];
+
     public function items(): HasMany
     {
         return $this->hasMany(ItemRencanaUsulanKegiatan::class);

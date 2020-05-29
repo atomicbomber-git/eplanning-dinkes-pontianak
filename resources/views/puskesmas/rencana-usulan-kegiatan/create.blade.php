@@ -1,15 +1,14 @@
 @extends("layouts.app")
 
 @section("content")
-    <h1> Sunting Rencana Usulan Kegiatan </h1>
+    <h1> Tambah Rencana Usulan Kegiatan </h1>
 
     <div class="card">
         <div class="card-body">
             @include("layouts._messages")
 
             <form method="POST"
-                  action="{{ route("puskesmas.rencana-usulan-kegiatan.update", $rencana_usulan_kegiatan) }}">
-                @method("PATCH")
+                  action="{{ route("puskesmas.rencana-usulan-kegiatan.store") }}">
                 @csrf
 
                 <div class="form-group">
@@ -20,7 +19,7 @@
                         placeholder="Waktu Pembuatan"
                         class="form-control @error("waktu_pembuatan") is-invalid @enderror"
                         name="waktu_pembuatan"
-                        value="{{ old("waktu_pembuatan", $rencana_usulan_kegiatan->waktu_pembuatan->format("Y-m-d\TH:i:s") ) }}"
+                        value="{{ old("waktu_pembuatan") }}"
                     />
                     @error("waktu_pembuatan")
                     <span class="invalid-feedback">
@@ -50,6 +49,7 @@
                         </thead>
 
                         <body>
+
                         @foreach($unit_puskesmas_list AS $unit_puskesmas)
                             <tr class="font-weight-bold">
                                 <td colspan="12"> {{ $unit_puskesmas->nama  }} </td>
@@ -64,8 +64,7 @@
                                             placeholder="Kegiatan"
                                             array_name="item_rencana_usulan_kegiatan_list"
                                             field="kegiatan"
-                                            :item="$upaya_kesehatan->item_rencana_usulan_kegiatan"
-                                            :row_id="$upaya_kesehatan->item_rencana_usulan_kegiatan->id"
+                                            row_id="{{ $loop->parent->index . $loop->index }}"
                                         ></x-inline-textarea>
 
                                         <input
@@ -79,8 +78,7 @@
                                             placeholder="Tujuan"
                                             array_name="item_rencana_usulan_kegiatan_list"
                                             field="tujuan"
-                                            :item="$upaya_kesehatan->item_rencana_usulan_kegiatan"
-                                            :row_id="$upaya_kesehatan->item_rencana_usulan_kegiatan->id"
+                                            row_id="{{ $loop->parent->index . $loop->index }}"
                                         ></x-inline-textarea>
                                     </td>
                                     <td>
@@ -88,16 +86,14 @@
                                             placeholder="Sasaran"
                                             array_name="item_rencana_usulan_kegiatan_list"
                                             field="sasaran"
-                                            :item="$upaya_kesehatan->item_rencana_usulan_kegiatan"
-                                            :row_id="$upaya_kesehatan->item_rencana_usulan_kegiatan->id"
+                                            row_id="{{ $loop->parent->index . $loop->index }}"
                                         ></x-inline-textarea>
                                     <td>
                                         <x-inline-textarea
                                             placeholder="Target Sasaran"
                                             array_name="item_rencana_usulan_kegiatan_list"
                                             field="target_sasaran"
-                                            :item="$upaya_kesehatan->item_rencana_usulan_kegiatan"
-                                            :row_id="$upaya_kesehatan->item_rencana_usulan_kegiatan->id"
+                                            row_id="{{ $loop->parent->index . $loop->index }}"
                                         ></x-inline-textarea>
                                     </td>
                                     <td>
@@ -105,8 +101,7 @@
                                             placeholder="Penanggung Jawab"
                                             array_name="item_rencana_usulan_kegiatan_list"
                                             field="penanggung_jawab"
-                                            :item="$upaya_kesehatan->item_rencana_usulan_kegiatan"
-                                            :row_id="$upaya_kesehatan->item_rencana_usulan_kegiatan->id"
+                                            row_id="{{ $loop->parent->index . $loop->index }}"
                                         ></x-inline-textarea>
                                     </td>
                                     <td>
@@ -114,8 +109,7 @@
                                             placeholder="Kebutuhan Sumber Daya"
                                             array_name="item_rencana_usulan_kegiatan_list"
                                             field="kebutuhan_sumber_daya"
-                                            :item="$upaya_kesehatan->item_rencana_usulan_kegiatan"
-                                            :row_id="$upaya_kesehatan->item_rencana_usulan_kegiatan->id"
+                                            row_id="{{ $loop->parent->index . $loop->index }}"
                                         ></x-inline-textarea>
                                     </td>
                                     <td>
@@ -123,8 +117,7 @@
                                             placeholder="Mitra Kerja"
                                             array_name="item_rencana_usulan_kegiatan_list"
                                             field="mitra_kerja"
-                                            :item="$upaya_kesehatan->item_rencana_usulan_kegiatan"
-                                            :row_id="$upaya_kesehatan->item_rencana_usulan_kegiatan->id"
+                                            row_id="{{ $loop->parent->index . $loop->index }}"
                                         ></x-inline-textarea>
                                     </td>
                                     <td>
@@ -132,8 +125,7 @@
                                             placeholder="Waktu Pelaksanaan"
                                             array_name="item_rencana_usulan_kegiatan_list"
                                             field="waktu_pelaksanaan"
-                                            :item="$upaya_kesehatan->item_rencana_usulan_kegiatan"
-                                            :row_id="$upaya_kesehatan->item_rencana_usulan_kegiatan->id"
+                                            row_id="{{ $loop->parent->index . $loop->index }}"
                                         ></x-inline-textarea>
                                     </td>
                                     <td>
@@ -141,8 +133,7 @@
                                             placeholder="Kebutuhan Anggaran"
                                             array_name="item_rencana_usulan_kegiatan_list"
                                             field="kebutuhan_anggaran"
-                                            :item="$upaya_kesehatan->item_rencana_usulan_kegiatan"
-                                            :row_id="$upaya_kesehatan->item_rencana_usulan_kegiatan->id"
+                                            row_id="{{ $loop->parent->index . $loop->index }}"
                                             type="number"
                                             step="any"
                                         ></x-inline-input>
@@ -152,8 +143,7 @@
                                             placeholder="Indikator Kinerja"
                                             array_name="item_rencana_usulan_kegiatan_list"
                                             field="indikator_kinerja"
-                                            :item="$upaya_kesehatan->item_rencana_usulan_kegiatan"
-                                            :row_id="$upaya_kesehatan->item_rencana_usulan_kegiatan->id"
+                                            row_id="{{ $loop->parent->index . $loop->index }}"
                                         ></x-inline-textarea>
                                     </td>
                                     <td>
@@ -161,8 +151,7 @@
                                             placeholder="Sumber Pembiayaan"
                                             array_name="item_rencana_usulan_kegiatan_list"
                                             field="sumber_pembiayaan"
-                                            :item="$upaya_kesehatan->item_rencana_usulan_kegiatan"
-                                            :row_id="$upaya_kesehatan->item_rencana_usulan_kegiatan->id"
+                                            row_id="{{ $loop->parent->index . $loop->index }}"
                                         ></x-inline-textarea>
                                     </td>
                                 </tr>
@@ -174,7 +163,7 @@
 
                 <div class="form-group d-flex justify-content-end py-3">
                     <button class="btn btn-lg btn-primary">
-                        Perbarui
+                        Tambah
                     </button>
                 </div>
             </form>

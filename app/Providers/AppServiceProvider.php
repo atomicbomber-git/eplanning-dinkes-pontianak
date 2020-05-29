@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Validation\Factory as ValidatorFactory;
+use Illuminate\Validation\Validator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +25,19 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $this->app->extend(ValidatorFactory::class, function (ValidatorFactory $factory) {
+            $factory->resolver(function ($translator, $data, $rules, $messages, $customAttributes) {
+                $validator = new Validator($translator, $data, $rules, $messages, $customAttributes);
+                $validator->setImplicitAttributesFormatter(function ($attribute) {
+                    [$group_name, $index, $attribute_name] = explode(".", $attribute);
+
+                    return __("validation.attributes.{$attribute_name}", [
+                        "index" => $index,
+                    ]);
+                });
+                return $validator;
+            });
+            return $factory;
+        });
     }
 }

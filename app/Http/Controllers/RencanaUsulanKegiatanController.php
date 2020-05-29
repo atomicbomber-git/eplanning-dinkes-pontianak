@@ -2,17 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Constants\MessageState;
+use App\ItemRencanaUsulanKegiatan;
 use App\RencanaUsulanKegiatan;
 use App\UnitPuskesmas;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
 class RencanaUsulanKegiatanController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -27,18 +31,26 @@ class RencanaUsulanKegiatanController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
-        //
+        $unit_puskesmas_list = UnitPuskesmas::query()
+            ->with([
+                "upaya_kesehatan_list",
+            ])
+            ->get();
+
+        return response()->view("puskesmas.rencana-usulan-kegiatan.create", compact(
+            "unit_puskesmas_list"
+        ));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -48,9 +60,9 @@ class RencanaUsulanKegiatanController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\RencanaUsulanKegiatan  $rencana_usulan_kegiatan
+     * @param RencanaUsulanKegiatan $rencana_usulan_kegiatan
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show(RencanaUsulanKegiatan $rencana_usulan_kegiatan
     )
@@ -61,9 +73,9 @@ class RencanaUsulanKegiatanController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\RencanaUsulanKegiatan  $rencana_usulan_kegiatan
+     * @param RencanaUsulanKegiatan $rencana_usulan_kegiatan
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function edit(RencanaUsulanKegiatan $rencana_usulan_kegiatan
     )
@@ -86,23 +98,61 @@ class RencanaUsulanKegiatanController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\RencanaUsulanKegiatan  $rencana_usulan_kegiatan
+     * @param Request $request
+     * @param RencanaUsulanKegiatan $rencana_usulan_kegiatan
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse|Response
      */
     public function update(Request $request, RencanaUsulanKegiatan $rencana_usulan_kegiatan
     )
     {
-        //
+        $data = $request->validate([
+            "waktu_pembuatan" => ["required", "date_format:Y-m-d\TH:i:s"],
+            "item_rencana_usulan_kegiatan_list.*.id" => ["required", "exists:item_rencana_usulan_kegiatan,id"],
+            "item_rencana_usulan_kegiatan_list.*.kegiatan" => ["nullable", "string"],
+            "item_rencana_usulan_kegiatan_list.*.tujuan" => ["nullable", "string"],
+            "item_rencana_usulan_kegiatan_list.*.sasaran" => ["nullable", "string"],
+            "item_rencana_usulan_kegiatan_list.*.target_sasaran" => ["nullable", "string"],
+            "item_rencana_usulan_kegiatan_list.*.penanggung_jawab" => ["nullable", "string"],
+            "item_rencana_usulan_kegiatan_list.*.kebutuhan_sumber_daya" => ["nullable", "string"],
+            "item_rencana_usulan_kegiatan_list.*.mitra_kerja" => ["nullable", "string"],
+            "item_rencana_usulan_kegiatan_list.*.waktu_pelaksanaan" => ["nullable", "string"],
+            "item_rencana_usulan_kegiatan_list.*.kebutuhan_anggaran" => ["required", "numeric", "gte:0"],
+            "item_rencana_usulan_kegiatan_list.*.indikator_kinerja" => ["nullable", "string"],
+            "item_rencana_usulan_kegiatan_list.*.sumber_pembiayaan" => ["nullable", "string"],
+        ]);
+
+        DB::beginTransaction();
+
+        $rencana_usulan_kegiatan->update([
+            "waktu_pembuatan" => $data["waktu_pembuatan"],
+        ]);
+
+        foreach ($data["item_rencana_usulan_kegiatan_list"] as $data_item_rencana_usulan_kegiatan) {
+            ItemRencanaUsulanKegiatan::query()
+                ->where("id", $data_item_rencana_usulan_kegiatan["id"])
+                ->update(
+                    collect($data_item_rencana_usulan_kegiatan)->except("id")->toArray()
+                );
+        }
+
+        DB::commit();
+
+        return redirect()->back()
+            ->with("messages", [
+                [
+                    "content" => __("messages.update.success"),
+                    "state" => MessageState::STATE_SUCCESS
+                ]
+            ]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\RencanaUsulanKegiatan  $rencana_usulan_kegiatan
+     * @param RencanaUsulanKegiatan $rencana_usulan_kegiatan
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy(RencanaUsulanKegiatan $rencana_usulan_kegiatan
     )
