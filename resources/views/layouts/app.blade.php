@@ -35,13 +35,19 @@
                     <ul class="navbar-nav mr-auto">
                         @auth
                             <a class="nav-link active"
-                               href="{{ route("puskesmas.rencana-lima-tahunan.index")}}"> Rencana Lima Tahunan
+                               href="{{ route("puskesmas.rencana-lima-tahunan.index")}}">
+                                Rencana Lima Tahunan
                             </a>
 
                             <a class="nav-link active"
-                               href="{{ route("puskesmas.rencana-usulan-kegiatan.index")}}"> Rencana Usulan Kegiatan
+                               href="{{ route("puskesmas.rencana-usulan-kegiatan.index")}}">
+                                Rencana Usulan Kegiatan
                             </a>
 
+                            <a class="nav-link active"
+                               href="{{ route("puskesmas.rencana-pelaksanaan-kegiatan.index")}}">
+                                Rencana Pelaksanaan Kegiatan
+                            </a>
                         @endauth
                     </ul>
 

@@ -14,7 +14,12 @@ class RencanaPelaksanaanKegiatanController extends Controller
      */
     public function index()
     {
-        //
+        $rencana_pelaksanaan_kegiatan_list = RencanaPelaksanaanKegiatan::query()
+            ->get();
+
+        return response()->view("puskesmas.rencana-pelaksanaan-kegiatan.index", compact(
+            "rencana_pelaksanaan_kegiatan_list"
+        ));
     }
 
     /**
@@ -41,10 +46,10 @@ class RencanaPelaksanaanKegiatanController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\RencanaPelaksanaanKegiatan  $rencanaPelaksanaanKegiatan
+     * @param  \App\RencanaPelaksanaanKegiatan  $rencana_pelaksanaan_kegiatan
      * @return \Illuminate\Http\Response
      */
-    public function show(RencanaPelaksanaanKegiatan $rencanaPelaksanaanKegiatan)
+    public function show(RencanaPelaksanaanKegiatan $rencana_pelaksanaan_kegiatan)
     {
         //
     }
@@ -52,10 +57,10 @@ class RencanaPelaksanaanKegiatanController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\RencanaPelaksanaanKegiatan  $rencanaPelaksanaanKegiatan
+     * @param  \App\RencanaPelaksanaanKegiatan  $rencana_pelaksanaan_kegiatan
      * @return \Illuminate\Http\Response
      */
-    public function edit(RencanaPelaksanaanKegiatan $rencanaPelaksanaanKegiatan)
+    public function edit(RencanaPelaksanaanKegiatan $rencana_pelaksanaan_kegiatan)
     {
         //
     }
@@ -64,10 +69,10 @@ class RencanaPelaksanaanKegiatanController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\RencanaPelaksanaanKegiatan  $rencanaPelaksanaanKegiatan
+     * @param  \App\RencanaPelaksanaanKegiatan  $rencana_pelaksanaan_kegiatan
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, RencanaPelaksanaanKegiatan $rencanaPelaksanaanKegiatan)
+    public function update(Request $request, RencanaPelaksanaanKegiatan $rencana_pelaksanaan_kegiatan)
     {
         //
     }
@@ -75,10 +80,10 @@ class RencanaPelaksanaanKegiatanController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\RencanaPelaksanaanKegiatan  $rencanaPelaksanaanKegiatan
+     * @param  \App\RencanaPelaksanaanKegiatan  $rencana_pelaksanaan_kegiatan
      * @return \Illuminate\Http\Response
      */
-    public function destroy(RencanaPelaksanaanKegiatan $rencanaPelaksanaanKegiatan)
+    public function destroy(RencanaPelaksanaanKegiatan $rencana_pelaksanaan_kegiatan)
     {
         //
     }

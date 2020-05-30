@@ -27,19 +27,19 @@ class RencanaLimaTahunanSeeder extends Seeder
             ->get();
 
         foreach ($puskesmases as $puskesmas) {
-//            $rencana_lima_tahunan_list = factory(Ren)
-
-
-            $rencana_lima_tahunan = RencanaLimaTahunan::query()->create([
-                "waktu_pembuatan" => Carbon::now()->subMinutes(rand(0, 60 * 24 * 30)),
-                "puskesmas_id" => $puskesmas->id,
-            ]);
-
-            foreach ($upaya_kesehatan_list as $upaya_kesehatan) {
-                factory(ItemRencanaLimaTahunan::class)->create([
-                    "rencana_lima_tahunan_id" => $rencana_lima_tahunan->id,
-                    "upaya_kesehatan_id" => $upaya_kesehatan->id,
+            $rencana_lima_tahunan_list = factory(RencanaLimaTahunan::class, static::N_RENCANA_PER_PUSKESMAS)
+                ->create([
+                    "waktu_pembuatan" => Carbon::now()->subMinutes(rand(0, 60 * 24 * 30)),
+                    "puskesmas_id" => $puskesmas->id,
                 ]);
+
+            foreach ($rencana_lima_tahunan_list as $rencana_lima_tahunan) {
+                foreach ($upaya_kesehatan_list as $upaya_kesehatan) {
+                    factory(ItemRencanaLimaTahunan::class)->create([
+                        "rencana_lima_tahunan_id" => $rencana_lima_tahunan->id,
+                        "upaya_kesehatan_id" => $upaya_kesehatan->id,
+                    ]);
+                }
             }
         }
 
