@@ -22,7 +22,9 @@ class RencanaUsulanKegiatanController extends Controller
     public function index()
     {
         $rencana_usulan_kegiatan_list = RencanaUsulanKegiatan::query()
-            ->get();
+            ->where("puskesmas_id", auth()->user()->puskesmas->id)
+            ->orderByDesc("waktu_pembuatan")
+            ->paginate();
 
         return response()->view("puskesmas.rencana-usulan-kegiatan.index", compact(
             "rencana_usulan_kegiatan_list"
@@ -51,7 +53,7 @@ class RencanaUsulanKegiatanController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Request $request
-     * @return Response
+     * @return RedirectResponse|Response
      */
     public function store(Request $request)
     {

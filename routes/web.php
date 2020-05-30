@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\RencanaLimaTahunanController;
+use App\Http\Controllers\RencanaPelaksanaanKegiatanController;
 use App\Http\Controllers\RencanaUsulanKegiatanController;
 use App\RencanaPelaksanaanKegiatan;
 use App\RencanaUsulanKegiatan;
@@ -28,5 +29,5 @@ Route::group([
 ], function () {
     Route::resource("/rencana-lima-tahunan", class_basename(RencanaLimaTahunanController::class));
     Route::resource("/rencana-usulan-kegiatan", class_basename(RencanaUsulanKegiatanController::class));
-    Route::resource("/rencana-pelaksanaan-kegiatan", class_basename(RencanaPelaksanaanKegiatan::class));
+    Route::resource("/rencana-pelaksanaan-kegiatan", class_basename(RencanaPelaksanaanKegiatanController::class));
 });

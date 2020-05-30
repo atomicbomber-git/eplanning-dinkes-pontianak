@@ -28,8 +28,9 @@ class RencanaLimaTahunanController extends Controller
     public function index()
     {
         $rencana_lima_tahunan_list = RencanaLimaTahunan::query()
+            ->where("puskesmas_id", auth()->user()->puskesmas->id)
             ->orderByDesc("waktu_pembuatan")
-            ->get();
+            ->paginate();
 
         return response()->view("puskesmas.rencana-lima-tahunan.index", compact(
             "rencana_lima_tahunan_list"

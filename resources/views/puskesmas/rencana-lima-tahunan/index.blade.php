@@ -52,5 +52,9 @@
                 </table>
             </div>
         </div>
+
+        <div class="d-flex justify-content-center py-2">
+            {{ $rencana_lima_tahunan_list->links() }}
+        </div>
     </div>
 @endsection
