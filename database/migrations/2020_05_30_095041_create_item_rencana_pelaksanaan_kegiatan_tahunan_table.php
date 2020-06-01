@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateItemRencanaPelaksanaanKegiatanTable extends Migration
+class CreateItemRencanaPelaksanaanKegiatanTahunanTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateItemRencanaPelaksanaanKegiatanTable extends Migration
      */
     public function up()
     {
-        Schema::create('item_rencana_pelaksanaan_kegiatan', function (Blueprint $table) {
+        Schema::create('item_rencana_pelaksanaan_kegiatan_tahunan', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('rencana_pelaksanaan_kegiatan_id')->index('rpk-id-index');
-            $table->unsignedInteger('upaya_kesehatan_id')->index();
+            $table->unsignedInteger('rencana_pelaksanaan_kegiatan_tahunan_id')->index('rpk-id-index');
+            $table->unsignedInteger('upaya_kesehatan_id')->index('irpk-up-index');
 
             $table->text('kegiatan');
             $table->text('tujuan');
@@ -30,12 +30,13 @@ class CreateItemRencanaPelaksanaanKegiatanTable extends Migration
             $table->decimal('biaya', 19, 4);
             $table->timestamps();
 
-            $table->foreign('rencana_pelaksanaan_kegiatan_id', "irpk-rpk-foreign")
+            $table->foreign('rencana_pelaksanaan_kegiatan_tahunan_id', "irpk-rpk-foreign")
                 ->references('id')
-                ->on('rencana_pelaksanaan_kegiatan')
+                ->on('rencana_pelaksanaan_kegiatan_tahunan')
                 ->cascadeOnDelete();
 
-            $table->foreign('upaya_kesehatan_id')->references('id')
+            $table->foreign('upaya_kesehatan_id', 'irpk-up-foreign')
+                ->references('id')
                 ->on('upaya_kesehatan')
                 ->cascadeOnDelete();
         });
@@ -48,6 +49,6 @@ class CreateItemRencanaPelaksanaanKegiatanTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('item_rencana_pelaksanaan_kegiatan');
+        Schema::dropIfExists('item_rencana_pelaksanaan_kegiatan_tahunan');
     }
 }

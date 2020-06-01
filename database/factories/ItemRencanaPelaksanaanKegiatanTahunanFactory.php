@@ -5,7 +5,7 @@
 use App\ItemRencanaPelaksanaanKegiatanFactory;
 use Faker\Generator as Faker;
 
-$factory->define(\App\ItemRencanaPelaksanaanKegiatan::class, function (Faker $faker) {
+$factory->define(\App\ItemRencanaPelaksanaanKegiatanTahunan::class, function (Faker $faker) {
     return [
         'kegiatan' => $faker->sentence,
         'tujuan' => $faker->sentence,

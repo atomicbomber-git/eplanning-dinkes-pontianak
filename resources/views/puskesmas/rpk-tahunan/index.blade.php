@@ -3,12 +3,12 @@
 @section("content")
     <div class="container">
         <h1>
-            Rencana Pelaksanaan Kegiatan
+            Rencana Pelaksanaan Kegiatan Tahunan
         </h1>
 
         <div class="d-flex justify-content-end py-3">
-            <a class="btn btn-dark" href="{{ route("puskesmas.rencana-pelaksanaan-kegiatan.create") }}">
-                Tambah Rencana Pelaksanaan Kegiatan
+            <a class="btn btn-dark" href="{{ route("puskesmas.rpk-tahunan.create") }}">
+                Tambah Rencana Pelaksanaan Kegiatan Tahunan
             </a>
         </div>
 
@@ -20,23 +20,23 @@
                     <thead class="thead thead-dark">
                     <tr>
                         <th class="text-center"> # </th>
-                        <th> Tanggal Pembuatan </th>
+                        <th> Tahun </th>
                         <th class="text-center"> Aksi </th>
                     </tr>
                     </thead>
 
                     <tbody>
-                    @foreach($rencana_pelaksanaan_kegiatan_list as $rencana_pelaksanaan_kegiatan)
+                    @foreach($rencana_pelaksanaan_kegiatan_tahunan_list as $rencana_pelaksanaan_kegiatan_tahunan)
                         <tr>
                             <td class="text-center"> {{ $loop->iteration }} </td>
-                            <td> {{ \App\Support\Formatter::fancyDatetime($rencana_pelaksanaan_kegiatan->waktu_pembuatan) }} </td>
+                            <td> {{ $rencana_pelaksanaan_kegiatan_tahunan->tahun }} </td>
                             <td class="text-center">
-                                <a class="btn btn-dark" href="{{ route("puskesmas.rencana-pelaksanaan-kegiatan.edit", $rencana_pelaksanaan_kegiatan)  }}">
-                                    Sunting / Lihat
+                                <a class="btn btn-dark" href="{{ route("puskesmas.rpk-tahunan.item-rpk-tahunan.index", $rencana_pelaksanaan_kegiatan_tahunan)  }}">
+                                    Detail
                                 </a>
 
                                 <form class="d-inline-block"
-                                      action="{{ route('puskesmas.rencana-pelaksanaan-kegiatan.destroy', $rencana_pelaksanaan_kegiatan) }}"
+                                      action="{{ route('puskesmas.rpk-tahunan.destroy', $rencana_pelaksanaan_kegiatan_tahunan) }}"
                                       method="post">
                                     @csrf
                                     @method("DELETE")
@@ -54,7 +54,7 @@
         </div>
 
         <div class="d-flex justify-content-center py-2">
-            {{ $rencana_pelaksanaan_kegiatan_list->links() }}
+            {{ $rencana_pelaksanaan_kegiatan_tahunan_list->links() }}
         </div>
     </div>
 @endsection

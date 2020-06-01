@@ -12,6 +12,11 @@ class Formatter
         return (new Date($datetime))->format("l, d F Y H:i:s");
     }
 
+    public static function currency($amount): string
+    {
+        return number_format($amount);
+    }
+
     public static function normalizeNumber($number)
     {
         return rtrim(rtrim($number, "0"), ".");

@@ -10,7 +10,14 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+// Select2
+@import "~select2/dist/css/select2.min.css";
+
 textarea.rlt-textarea {
     width: 150px;
     height: 100px
+}
+
+.mw-70 {
+    max-width: 65px;
 }

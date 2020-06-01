@@ -27,9 +27,14 @@ class UpayaKesehatan extends Model
         return $this->hasOne(ItemRencanaUsulanKegiatan::class);
     }
 
-    public function item_rencana_pelaksanaan_kegiatan(): HasOne
+    public function item_rencana_pelaksanaan_kegiatan_tahunan(): HasOne
     {
-        return $this->hasOne(ItemRencanaPelaksanaanKegiatan::class);
+        return $this->hasOne(ItemRencanaPelaksanaanKegiatanTahunan::class);
+    }
+
+    public function item_rencana_pelaksanaan_kegiatan_tahunan_list(): HasMany
+    {
+        return $this->hasMany(ItemRencanaPelaksanaanKegiatanTahunan::class);
     }
 
     public function item_rencana_lima_tahunan_list(): HasMany
