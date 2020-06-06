@@ -5,8 +5,19 @@
         <h1> Item Rencana Pelaksanaan Kegiatan Tahun {{ $rpk_tahunan->tahun }} </h1>
 
         <div class="d-flex justify-content-end py-3">
-            <a class="btn btn-dark" href="{{ route("puskesmas.rpk-tahunan.item-rpk-tahunan.create", $rpk_tahunan) }}">
+            <a
+                class="btn btn-dark mr-2"
+                href="{{ route("puskesmas.print-rpk-tahunan", $rpk_tahunan)  }}"
+                >
+                Cetak
+                <i class="fas fa-print"></i>
+            </a>
+
+            <a
+                class="btn btn-dark"
+                href="{{ route("puskesmas.rpk-tahunan.item-rpk-tahunan.create", $rpk_tahunan) }}">
                 Tambah Item
+                <i class="fas fa-plus"></i>
             </a>
         </div>
     </div>

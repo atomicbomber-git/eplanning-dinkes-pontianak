@@ -52,11 +52,6 @@
                            href="{{ route("puskesmas.rpk-tahunan.index")}}">
                             RPK Tahunan
                         </a>
-
-                        <a class="nav-link active"
-                           href="{{ route("puskesmas.rpk-tahunan.index")}}">
-                            RPK Bulanan
-                        </a>
                     @endauth
                 </ul>
 
