@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Constants\UserLevel;
+use App\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -16,6 +18,8 @@ class AuthServiceProvider extends ServiceProvider
         // 'App\Model' => 'App\Policies\ModelPolicy',
     ];
 
+    const MANAGE_PUSKESMAS = "manage-puskesmas";
+
     /**
      * Register any authentication / authorization services.
      *
@@ -25,6 +29,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define(self::MANAGE_PUSKESMAS, function (User $user) {
+            return $user->level === UserLevel::SUPER_ADMIN;
+        });
     }
 }

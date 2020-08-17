@@ -14,6 +14,8 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}"
           rel="stylesheet">
+
+    @livewireStyles
 </head>
 <body>
 <div id="app">
@@ -38,20 +40,29 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="navbar-nav mr-auto">
                     @auth
-                        <a class="nav-link {{ \Illuminate\Support\Facades\Route::is("puskesmas.rencana-lima-tahunan.*") ? "active" : ""  }}"
-                           href="{{ route("puskesmas.rencana-lima-tahunan.index")}}">
-                            RLT
-                        </a>
+                        @can(\App\Providers\AuthServiceProvider::MANAGE_PUSKESMAS)
+                            <a class="nav-link {{ \Illuminate\Support\Facades\Route::is("puskesmas-for-admin.*") ? "active" : ""  }}"
+                               href="{{ route("puskesmas-for-admin.index")}}">
+                                Puskesmas
+                            </a>
+                        @endcan
 
-                        <a class="nav-link {{ \Illuminate\Support\Facades\Route::is("puskesmas.rencana-usulan-kegiatan.*") ? "active" : ""  }}"
-                           href="{{ route("puskesmas.rencana-usulan-kegiatan.index")}}">
-                            RUK
-                        </a>
+                        @if(auth()->user()->level === \App\Constants\UserLevel::ADMIN_PUSKESMAS)
+                            <a class="nav-link {{ \Illuminate\Support\Facades\Route::is("puskesmas.rencana-lima-tahunan.*") ? "active" : ""  }}"
+                               href="{{ route("puskesmas.rencana-lima-tahunan.index")}}">
+                                RLT
+                            </a>
 
-                        <a class="nav-link {{ \Illuminate\Support\Facades\Route::is("puskesmas.rpk-tahunan.*") ? "active" : ""  }}"
-                           href="{{ route("puskesmas.rpk-tahunan.index")}}">
-                            RPK Tahunan
-                        </a>
+                            <a class="nav-link {{ \Illuminate\Support\Facades\Route::is("puskesmas.rencana-usulan-kegiatan.*") ? "active" : ""  }}"
+                               href="{{ route("puskesmas.rencana-usulan-kegiatan.index")}}">
+                                RUK
+                            </a>
+
+                            <a class="nav-link {{ \Illuminate\Support\Facades\Route::is("puskesmas.rpk-tahunan.*") ? "active" : ""  }}"
+                               href="{{ route("puskesmas.rpk-tahunan.index")}}">
+                                RPK Tahunan
+                            </a>
+                        @endif
                     @endauth
                 </ul>
 
@@ -119,6 +130,6 @@
 <script src="{{ asset('js/app.js') }}"></script>
 
 @stack('scripts')
-
+@livewireScripts
 </body>
 </html>

@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Constants\UserLevel;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 class RouteServiceProvider extends ServiceProvider
@@ -18,14 +20,18 @@ class RouteServiceProvider extends ServiceProvider
 
     const HOME = "/home";
 
-    /**
-     * The path to the "home" route for your application.
-     *
-     * @var string
-     */
-    public static function defaultRoute()
+    public static function home()
     {
-        return route("puskesmas.rencana-lima-tahunan.index");
+        $user = optional(Auth::user())
+            ->load(["puskesmas"]);
+
+        switch ($user->level ?? null) {
+            case UserLevel::SUPER_ADMIN:
+                return route("puskesmas-for-admin.index");
+            case UserLevel::ADMIN_PUSKESMAS:
+            default:
+                return route("puskesmas.rencana-lima-tahunan.index");
+        }
     }
 
     /**

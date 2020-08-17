@@ -15475,6 +15475,10 @@ a.text-dark:focus {
   }
 }
 
+.feature-title {
+  margin-bottom: 1.5rem;
+}
+
 textarea.rlt-textarea {
   width: 150px;
   height: 100px;

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ItemRencanaPelaksanaanKegiatanTahunanController;
 use App\Http\Controllers\PrintRencanaPelaksanaanKegiatanTahunanController;
+use App\Http\Controllers\PuskesmasForAdminController;
 use App\Http\Controllers\RencanaLimaTahunanController;
 use App\Http\Controllers\RencanaPelaksanaanKegiatanTahunanController;
 use App\Http\Controllers\RencanaUsulanKegiatanController;
@@ -22,6 +23,9 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::redirect("/", "/login");
+
+Route::resource("puskesmas-for-admin", class_basename(PuskesmasForAdminController::class))
+    ->parameter("puskesmas-for-admin", "puskesmas");
 
 Route::group([
     "prefix" => "puskesmas",

@@ -15,6 +15,7 @@ return [
     'delete' => [
         'success' => 'Data berhasil dihapus.',
         'failure' => 'Data gagal dihapus.',
-    ]
+    ],
 
+    'no_data' => 'Data tidak ditemukan'
 ];

@@ -9,6 +9,8 @@ require('./bootstrap');
 require("select2/dist/js/select2.js")
 
 window.Vue = require('vue');
+window.Swal = require("sweetalert2")
+require('alpinejs')
 
 /**
  * The following block of code may be used to automatically register your
@@ -31,3 +33,16 @@ files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(
 const app = new Vue({
     el: '#app',
 });
+
+window.confirmDialog = (attributes) => {
+    return Swal.fire({
+        title: `Konfirmasi`,
+        titleText: `Konfirmasi Tindakan`,
+        text: `Apakah Anda yakin ingin melakukan tindakan ini?`,
+        icon: `warning`,
+        showCancelButton: true,
+        confirmButtonText: `Ya`,
+        cancelButtonText: `Tidak`,
+        ...attributes,
+    })
+}

@@ -11,6 +11,7 @@
     },
     "devDependencies": {
         "@fortawesome/fontawesome-free": "^5.13.0",
+        "alpinejs": "^2.6.0",
         "axios": "^0.19",
         "bootstrap": "^4.0.0",
         "cross-env": "^7.0",
@@ -23,6 +24,7 @@
         "sass": "^1.20.1",
         "sass-loader": "^8.0.0",
         "select2": "^4.0.13",
+        "sweetalert2": "^9.17.1",
         "vue": "^2.5.17",
         "vue-template-compiler": "^2.6.10"
     }

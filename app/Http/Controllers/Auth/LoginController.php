@@ -23,7 +23,7 @@ class LoginController extends Controller
 
     public function redirectTo()
     {
-        return RouteServiceProvider::defaultRoute();
+        return RouteServiceProvider::home();
     }
 
     /**
