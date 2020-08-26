@@ -19,6 +19,8 @@ class AuthServiceProvider extends ServiceProvider
     ];
 
     const MANAGE_PUSKESMAS = "manage-puskesmas";
+    const MANAGE_UNIT_PUSKESMAS = "manage-unit-puskesmas";
+    const MANAGE_UPAYA_KESEHATAN = "manage-upaya-kesehatan";
 
     /**
      * Register any authentication / authorization services.
@@ -30,7 +32,15 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::define(self::MANAGE_PUSKESMAS, function (User $user) {
-            return $user->level === UserLevel::SUPER_ADMIN;
+            return $user->level === UserLevel::ADMIN_DINAS_KESEHATAN;
+        });
+
+        Gate::define(self::MANAGE_UNIT_PUSKESMAS, function (User $user) {
+            return $user->level === UserLevel::ADMIN_DINAS_KESEHATAN;
+        });
+
+        Gate::define(self::MANAGE_UPAYA_KESEHATAN, function (User $user) {
+            return $user->level === UserLevel::ADMIN_DINAS_KESEHATAN;
         });
     }
 }

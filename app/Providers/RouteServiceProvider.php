@@ -26,7 +26,7 @@ class RouteServiceProvider extends ServiceProvider
             ->load(["puskesmas"]);
 
         switch ($user->level ?? null) {
-            case UserLevel::SUPER_ADMIN:
+            case UserLevel::ADMIN_DINAS_KESEHATAN:
                 return route("puskesmas-for-admin.index");
             case UserLevel::ADMIN_PUSKESMAS:
             default:

@@ -6,6 +6,6 @@ namespace App\Constants;
 
 class UserLevel
 {
-    const SUPER_ADMIN = "SUPER_ADMIN";
+    const ADMIN_DINAS_KESEHATAN = "ADMIN_DINAS_KESEHATAN";
     const ADMIN_PUSKESMAS = "ADMIN_PUSKESMAS";
 }

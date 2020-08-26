@@ -17,5 +17,7 @@ return [
         'failure' => 'Data gagal dihapus.',
     ],
 
-    'no_data' => 'Data tidak ditemukan'
+    'errors' => [
+        'no_data' => 'Tidak terdapat data.'
+    ],
 ];

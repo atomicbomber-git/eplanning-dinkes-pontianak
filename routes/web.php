@@ -6,6 +6,8 @@ use App\Http\Controllers\PuskesmasForAdminController;
 use App\Http\Controllers\RencanaLimaTahunanController;
 use App\Http\Controllers\RencanaPelaksanaanKegiatanTahunanController;
 use App\Http\Controllers\RencanaUsulanKegiatanController;
+use App\Http\Controllers\UnitPuskesmasForAdminController;
+use App\Http\Controllers\UpayaKesehatanForAdminController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +28,14 @@ Route::redirect("/", "/login");
 
 Route::resource("puskesmas-for-admin", class_basename(PuskesmasForAdminController::class))
     ->parameter("puskesmas-for-admin", "puskesmas");
+
+Route::resource("unit-puskesmas-for-admin", class_basename(UnitPuskesmasForAdminController::class))
+    ->parameter("unit-puskesmas-for-admin", "unit-puskesmas");
+
+
+
+//Route::resource("upaya-kesehatan-for-admin", class_basename(UpayaKesehatanForAdminController::class))
+//    ->parameter("upaya-kesehatan-for-admin", "upaya-kesehatan");
 
 Route::group([
     "prefix" => "puskesmas",
