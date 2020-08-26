@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Providers\AuthServiceProvider;
+use App\UnitPuskesmas;
 use App\UpayaKesehatan;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Request;
@@ -21,10 +22,12 @@ class UpayaKesehatanForAdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(UnitPuskesmas $unitPuskesmas)
     {
         $this->authorize(AuthServiceProvider::MANAGE_UPAYA_KESEHATAN);
-        return $this->responseFactory->view("upaya-kesehatan-for-admin.index");
+        return $this->responseFactory->view("upaya-kesehatan-for-admin.index", [
+            "unit_puskesmas" => $unitPuskesmas
+        ]);
     }
 
     /**

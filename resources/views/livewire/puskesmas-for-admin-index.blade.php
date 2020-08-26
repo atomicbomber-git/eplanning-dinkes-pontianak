@@ -6,7 +6,7 @@
     <x-messages></x-messages>
 
     <div class="d-flex justify-content-end my-3">
-        <a href="{{ route("puskesmas-for-admin.create") }}" class="btn btn-primary">
+        <a href="{{ route("puskesmas-for-admin.create") }}" class="btn btn-dark">
             Tambah
             <i class="fas fa-plus"></i>
         </a>
@@ -14,8 +14,8 @@
 
     @if($this->puskesmasList->isNotEmpty())
         <div class="table-responsive">
-            <table class="table table-sm table-striped table-hover">
-                <thead>
+            <table class="table table-striped table-hover">
+                <thead class="thead-dark">
                 <tr>
                     <th> # </th>
                     <th> Nama Puskesmas </th>
@@ -35,7 +35,7 @@
                         <td> {{ $puskesmas->user->username }} </td>
                         <td> {{ $puskesmas->alamat }} </td>
                         <td class="text-center">
-                            <a href="{{ route("puskesmas-for-admin.edit", $puskesmas) }}" class="btn btn-primary btn-sm">
+                            <a href="{{ route("puskesmas-for-admin.edit", $puskesmas) }}" class="btn btn-dark btn-sm">
                                 Ubah
                                 <i class="fas fa-pencil-alt  "></i>
                             </a>

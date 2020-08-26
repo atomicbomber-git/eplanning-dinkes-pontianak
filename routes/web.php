@@ -32,10 +32,10 @@ Route::resource("puskesmas-for-admin", class_basename(PuskesmasForAdminControlle
 Route::resource("unit-puskesmas-for-admin", class_basename(UnitPuskesmasForAdminController::class))
     ->parameter("unit-puskesmas-for-admin", "unit-puskesmas");
 
-
-
-//Route::resource("upaya-kesehatan-for-admin", class_basename(UpayaKesehatanForAdminController::class))
-//    ->parameter("upaya-kesehatan-for-admin", "upaya-kesehatan");
+Route::resource("unit-puskesmas-for-admin.upaya-kesehatan", class_basename(UpayaKesehatanForAdminController::class))
+    ->parameter("unit-puskesmas-for-admin", "unit-puskesmas")
+    ->shallow();
+;
 
 Route::group([
     "prefix" => "puskesmas",

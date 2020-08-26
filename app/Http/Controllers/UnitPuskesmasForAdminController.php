@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Constants\MessageState;
 use App\Providers\AuthServiceProvider;
+use App\Support\SessionHelper;
 use App\UnitPuskesmas;
 use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Validation\Rule;
 
 class UnitPuskesmasForAdminController extends Controller
 {
@@ -19,7 +24,7 @@ class UnitPuskesmasForAdminController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -30,66 +35,72 @@ class UnitPuskesmasForAdminController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
-        //
+        return $this->responseFactory->view("unit-puskesmas-for-admin.create");
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return RedirectResponse
      */
     public function store(Request $request)
     {
-        //
-    }
+        $data = $request->validate([
+            "nama" => ["required", "string", Rule::unique(UnitPuskesmas::class)]
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\UnitPuskesmas  $unitPuskesmas
-     * @return \Illuminate\Http\Response
-     */
-    public function show(UnitPuskesmas $unitPuskesmas)
-    {
-        //
+        UnitPuskesmas::query()->create($data);
+
+        SessionHelper::flashMessage(
+            __("messages.create.success"),
+            MessageState::STATE_SUCCESS,
+        );
+
+        return $this->responseFactory
+            ->redirectToRoute("unit-puskesmas-for-admin.index");
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\UnitPuskesmas  $unitPuskesmas
-     * @return \Illuminate\Http\Response
+     * @param UnitPuskesmas $unitPuskesmas
+     * @return Response
      */
     public function edit(UnitPuskesmas $unitPuskesmas)
     {
-        //
+        $this->authorize(AuthServiceProvider::MANAGE_UNIT_PUSKESMAS);
+        return $this->responseFactory->view("unit-puskesmas-for-admin.edit", [
+            "unit_puskesmas" => $unitPuskesmas
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\UnitPuskesmas  $unitPuskesmas
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param UnitPuskesmas $unitPuskesmas
+     * @return RedirectResponse
      */
     public function update(Request $request, UnitPuskesmas $unitPuskesmas)
     {
-        //
-    }
+        $this->authorize(AuthServiceProvider::MANAGE_UNIT_PUSKESMAS);
+        $data = $request->validate([
+            "nama" => ["required", Rule::unique(UnitPuskesmas::class)->ignoreModel($unitPuskesmas)],
+        ]);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\UnitPuskesmas  $unitPuskesmas
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(UnitPuskesmas $unitPuskesmas)
-    {
-        //
+        $unitPuskesmas->update($data);
+
+        SessionHelper::flashMessage(
+            __("messages.update.success"),
+            MessageState::STATE_SUCCESS,
+        );
+
+        return $this->responseFactory
+            ->redirectToRoute("unit-puskesmas-for-admin.edit", $unitPuskesmas);
     }
 }
