@@ -37,14 +37,6 @@
                         </a>
                     @endcan
 
-                    @can(\App\Providers\AuthServiceProvider::MANAGE_UPAYA_KESEHATAN)
-                        <a class="nav-link {{ \Illuminate\Support\Facades\Route::is("puskesmas-for-admin.*") ? "active" : ""  }}"
-                           href="{{ route("puskesmas-for-admin.index")}}"
-                        >
-                            Upaya Kesehatan
-                        </a>
-                    @endcan
-
                     @if(auth()->user()->level === \App\Constants\UserLevel::ADMIN_PUSKESMAS)
                         <a class="nav-link {{ \Illuminate\Support\Facades\Route::is("puskesmas.rencana-lima-tahunan.*") ? "active" : ""  }}"
                            href="{{ route("puskesmas.rencana-lima-tahunan.index")}}"
