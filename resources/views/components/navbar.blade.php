@@ -37,6 +37,13 @@
                         </a>
                     @endcan
 
+                    @can(\App\Providers\AuthServiceProvider::MANAGE_ANY_RENCANA_LIMA_TAHUNAN)
+                        <a class="nav-link {{ \Illuminate\Support\Facades\Route::is("rencana-lima-tahunan.*") ? "active" : ""  }}"
+                           href="{{ route("rencana-lima-tahunan-for-admin.index")}}">
+                            Rencana Lima Tahunan
+                        </a>
+                    @endcan
+
                     @if(auth()->user()->level === \App\Constants\UserLevel::ADMIN_PUSKESMAS)
                         <a class="nav-link {{ \Illuminate\Support\Facades\Route::is("puskesmas.rencana-lima-tahunan.*") ? "active" : ""  }}"
                            href="{{ route("puskesmas.rencana-lima-tahunan.index")}}"

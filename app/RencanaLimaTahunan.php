@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class RencanaLimaTahunan extends Model
@@ -13,6 +14,11 @@ class RencanaLimaTahunan extends Model
     protected $dates = [
         "waktu_pembuatan"
     ];
+
+    public function puskesmas(): BelongsTo
+    {
+        return $this->belongsTo(Puskesmas::class);
+    }
 
     public function item_rencana_lima_tahunan_list(): HasMany
     {

@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use Illuminate\Routing\Route;
+use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Factory as ValidatorFactory;
 use Illuminate\Validation\Validator;
@@ -24,6 +26,11 @@ class AppServiceProvider extends ServiceProvider
      * @return void
      */
     public function boot()
+    {
+
+    }
+
+    public function registerMiscellanea(): void
     {
         $this->app->extend(ValidatorFactory::class, function (ValidatorFactory $factory) {
             $factory->resolver(function ($translator, $data, $rules, $messages, $customAttributes) {
