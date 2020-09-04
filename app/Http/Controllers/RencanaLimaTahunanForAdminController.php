@@ -29,7 +29,7 @@ class RencanaLimaTahunanForAdminController extends Controller
      */
     public function index()
     {
-        $this->authorize(AuthServiceProvider::MANAGE_ANY_RENCANA_LIMA_TAHUNAN);
+        $this->authorize(AuthServiceProvider::VIEW_ANY_RENCANA_LIMA_TAHUNAN);
         return $this->responseFactory->view("rencana-lima-tahunan-for-admin.index");
     }
 

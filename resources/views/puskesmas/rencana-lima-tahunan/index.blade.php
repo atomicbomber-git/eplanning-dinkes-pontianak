@@ -21,6 +21,7 @@
                     <tr>
                         <th class="text-center"> # </th>
                         <th> Tanggal Pembuatan </th>
+                        <th> Periode </th>
                         <th class="text-center"> Aksi </th>
                     </tr>
                     </thead>
@@ -30,6 +31,9 @@
                         <tr>
                             <td class="text-center"> {{ $loop->iteration }} </td>
                             <td> {{ \App\Support\Formatter::fancyDatetime($rencana_lima_tahunan->waktu_pembuatan) }} </td>
+                            <td>
+                                {{ $rencana_lima_tahunan->tahun_awal_periode }}-{{ $rencana_lima_tahunan->tahun_akhir_periode }}
+                            </td>
                             <td class="text-center">
                                 <a class="btn btn-dark" href="{{ route("puskesmas.rencana-lima-tahunan.edit", $rencana_lima_tahunan)  }}">
                                     Sunting / Lihat

@@ -17,13 +17,13 @@ class PenerimaanRencanaLimaTahunanController extends Controller
 
     public function store(RencanaLimaTahunan $rencanaLimaTahunan)
     {
-        $this->authorize(AuthServiceProvider::MANAGE_ANY_RENCANA_LIMA_TAHUNAN);
+        $this->authorize(AuthServiceProvider::VIEW_ANY_RENCANA_LIMA_TAHUNAN);
         return $rencanaLimaTahunan;
     }
 
     public function destroy(RencanaLimaTahunan $rencanaLimaTahunan)
     {
-        $this->authorize(AuthServiceProvider::MANAGE_ANY_RENCANA_LIMA_TAHUNAN);
+        $this->authorize(AuthServiceProvider::VIEW_ANY_RENCANA_LIMA_TAHUNAN);
         return $rencanaLimaTahunan;
     }
 }

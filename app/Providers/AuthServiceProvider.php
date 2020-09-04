@@ -18,7 +18,11 @@ class AuthServiceProvider extends ServiceProvider
         // 'App\Model' => 'App\Policies\ModelPolicy',
     ];
 
-    const MANAGE_ANY_RENCANA_LIMA_TAHUNAN = "manage-any-rencana-lima-tahunan";
+    const VIEW_ANY_RENCANA_LIMA_TAHUNAN = "view-any-rencana-lima-tahunan";
+
+    const CREATE_RENCANA_LIMA_TAHUNAN = "create-rencana-lima-tahunan";
+    const VIEW_OWN_RENCANA_LIMA_TAHUNAN = "view-own-rencana-lima-tahunan";
+
     const MANAGE_PUSKESMAS = "manage-puskesmas";
     const MANAGE_UNIT_PUSKESMAS = "manage-unit-puskesmas";
     const MANAGE_UPAYA_KESEHATAN = "manage-upaya-kesehatan";
@@ -44,8 +48,16 @@ class AuthServiceProvider extends ServiceProvider
             return $user->level === UserLevel::ADMIN_DINAS_KESEHATAN;
         });
 
-        Gate::define(self::MANAGE_ANY_RENCANA_LIMA_TAHUNAN, function (User $user) {
+        Gate::define(self::VIEW_ANY_RENCANA_LIMA_TAHUNAN, function (User $user) {
             return $user->level === UserLevel::ADMIN_DINAS_KESEHATAN;
+        });
+
+        Gate::define(self::CREATE_RENCANA_LIMA_TAHUNAN, function (User $user) {
+            return $user->level === UserLevel::ADMIN_PUSKESMAS;
+        });
+
+        Gate::define(self::VIEW_OWN_RENCANA_LIMA_TAHUNAN, function (User $user) {
+            return $user->level === UserLevel::ADMIN_PUSKESMAS;
         });
     }
 }

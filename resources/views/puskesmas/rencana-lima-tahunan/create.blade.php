@@ -2,7 +2,15 @@
 
 @section("content")
     <div class="container">
-        <h1> Tambah Rencana Lima Tahunan </h1>
+        <h1 class="feature-title">
+            <a href="{{ route("puskesmas.rencana-lima-tahunan.index") }}">
+                Rencana Lima Tahunan
+            </a>
+
+            /
+
+            Tambah
+        </h1>
     </div>
 
     <div class="card">
@@ -18,6 +26,40 @@
                     label="Waktu Pembuatan"
                     type="datetime-local"
                 ></x-input>
+
+                <div class="form-group">
+                    <label for="tahun_awal_periode"> Tahun Awal Periode: </label>
+                    <input
+                            id="tahun_awal_periode"
+                            type="number"
+                            placeholder="Tahun Awal Periode"
+                            class="form-control @error("tahun_awal_periode") is-invalid @enderror"
+                            name="tahun_awal_periode"
+                            value="{{ old("tahun_awal_periode") }}"
+                    />
+                    @error("tahun_awal_periode")
+                    <span class="invalid-feedback">
+                        {{ $message }}
+                    </span>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="tahun_akhir_periode"> Tahun Akhir Periode: </label>
+                    <input
+                            id="tahun_akhir_periode"
+                            type="number"
+                            placeholder="Tahun Akhir Periode"
+                            class="form-control @error("tahun_akhir_periode") is-invalid @enderror"
+                            name="tahun_akhir_periode"
+                            value="{{ old("tahun_akhir_periode") }}"
+                    />
+                    @error("tahun_akhir_periode")
+                    <span class="invalid-feedback">
+                        {{ $message }}
+                    </span>
+                    @enderror
+                </div>
 
                 <div class="table-responsive">
                     <table class="table table-sm">
