@@ -14,6 +14,7 @@
                         <th> # </th>
                         <th> Puskesmas </th>
                         <th> Waktu Pembuatan </th>
+                        <th> Periode </th>
                         <th> Waktu Penerimaan </th>
                         <th class="text-center"> Kendali </th>
                     </tr>
@@ -26,8 +27,13 @@
                             <td> {{ $rencana_lima_tahunan->puskesmas->nama }} </td>
                             <td> {{ $rencana_lima_tahunan->waktu_pembuatan }} </td>
                             <td>
+                                {{ $rencana_lima_tahunan->tahun_awal_periode }}-{{ $rencana_lima_tahunan->tahun_akhir_periode }}
+                            </td>
+                            <td>
                                 @if($rencana_lima_tahunan->waktu_penerimaan)
-                                    {{ $rencana_lima_tahunan->waktu_penerimaan }}
+                                    <span class="badge badge-pill badge-success" style="font-size: 10pt">
+                                        {{ $rencana_lima_tahunan->waktu_penerimaan }}
+                                    </span>
                                 @else
                                     <span class="badge badge-pill badge-danger" style="font-size: 10pt">
                                         Belum Diterima

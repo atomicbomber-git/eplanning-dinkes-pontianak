@@ -20,8 +20,9 @@
                     <thead class="thead thead-dark">
                     <tr>
                         <th class="text-center"> # </th>
-                        <th> Tanggal Pembuatan </th>
+                        <th> Waktu Pembuatan </th>
                         <th> Periode </th>
+                        <th> Waktu Penerimaan </th>
                         <th class="text-center"> Aksi </th>
                     </tr>
                     </thead>
@@ -33,6 +34,17 @@
                             <td> {{ \App\Support\Formatter::fancyDatetime($rencana_lima_tahunan->waktu_pembuatan) }} </td>
                             <td>
                                 {{ $rencana_lima_tahunan->tahun_awal_periode }}-{{ $rencana_lima_tahunan->tahun_akhir_periode }}
+                            </td>
+                            <td>
+                                @if($rencana_lima_tahunan->waktu_penerimaan)
+                                    <span class="badge badge-pill badge-success" style="font-size: 10pt">
+                                        {{ $rencana_lima_tahunan->waktu_penerimaan }}
+                                    </span>
+                                @else
+                                    <span class="badge badge-pill badge-danger" style="font-size: 10pt">
+                                        Belum Diterima
+                                    </span>
+                                @endif
                             </td>
                             <td class="text-center">
                                 <a class="btn btn-dark" href="{{ route("puskesmas.rencana-lima-tahunan.edit", $rencana_lima_tahunan)  }}">

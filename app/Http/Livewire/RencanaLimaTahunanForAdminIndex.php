@@ -26,7 +26,7 @@ class RencanaLimaTahunanForAdminIndex extends Component
         return view('livewire.rencana-lima-tahunan-for-admin-index', [
             "rencana_lima_tahunans" => RencanaLimaTahunan::query()
                 ->with("puskesmas")
-                ->orderBy("waktu_pembuatan")
+                ->orderByDesc("tahun_awal_periode")
                 ->paginate()
         ]);
     }
