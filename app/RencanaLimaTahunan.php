@@ -20,6 +20,11 @@ class RencanaLimaTahunan extends Model
         return $this->belongsTo(Puskesmas::class);
     }
 
+    public function items(): HasMany
+    {
+        return $this->hasMany(ItemRencanaLimaTahunan::class);
+    }
+
     public function item_rencana_lima_tahunan_list(): HasMany
     {
         return $this->hasMany(ItemRencanaLimaTahunan::class);

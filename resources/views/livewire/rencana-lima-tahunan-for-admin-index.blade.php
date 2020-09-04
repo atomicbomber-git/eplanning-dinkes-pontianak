@@ -29,22 +29,18 @@
                                 @if($rencana_lima_tahunan->waktu_penerimaan)
                                     {{ $rencana_lima_tahunan->waktu_penerimaan }}
                                 @else
-                                    <span class="badge badge-pill badge-danger">
+                                    <span class="badge badge-pill badge-danger" style="font-size: 10pt">
                                         Belum Diterima
                                     </span>
                                 @endif
                             </td>
                             <td class="text-center">
-{{--                                @if($rencana_lima_tahunan->waktu_penerimaan)--}}
-{{--                                    <a href="" class="btn btn-warning">--}}
-{{--                                        Batalkan Penerimaan--}}
-{{--                                    </a>--}}
-{{--                                @else--}}
-{{--                                    <a href="{{ route("penerimaan-rencana-lima-tahunan.create") }}" class="btn btn-success btn-sm">--}}
-{{--                                        Terima--}}
-{{--                                        <i class="fas fa-check"></i>--}}
-{{--                                    </a>--}}
-{{--                                @endif--}}
+                                <a
+                                        class="btn btn-dark btn-sm"
+                                        href="{{ route("rencana-lima-tahunan-for-admin.edit", $rencana_lima_tahunan) }}">
+                                    Ubah / Lihat
+                                    <i class="fas fa-pencil-alt"></i>
+                                </a>
                             </td>
                         </tr>
                     @endforeach

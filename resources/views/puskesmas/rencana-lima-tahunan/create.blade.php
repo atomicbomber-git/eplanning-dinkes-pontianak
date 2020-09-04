@@ -38,7 +38,7 @@
                         </tr>
                         </thead>
 
-                        <body>
+                        <tbody>
                         @foreach($unit_puskesmas_list AS $unit_puskesmas)
                             <tr class="font-weight-bold">
                                 <td colspan="12"> {{ $unit_puskesmas->nama  }} </td>
@@ -158,7 +158,7 @@
                                 </tr>
                             @endforeach
                         @endforeach
-                        </body>
+                        </tbody>
                     </table>
                 </div>
 
