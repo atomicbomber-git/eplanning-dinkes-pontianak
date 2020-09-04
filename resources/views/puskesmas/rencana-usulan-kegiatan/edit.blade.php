@@ -2,7 +2,15 @@
 
 @section("content")
     <div class="container">
-        <h1> Sunting Rencana Usulan Kegiatan </h1>
+        <h1 class="feature-title">
+            <a href="{{ route("puskesmas.rencana-usulan-kegiatan.index") }}">
+                Rencana Usulan Kegiatan
+            </a>
+
+            /
+
+            Ubah
+        </h1>
     </div>
 
     <div class="container-fluid">

@@ -2,7 +2,15 @@
 
 @section("content")
     <div class="container">
-        <h1> Tambah Rencana Usulan Kegiatan</h1>
+        <h1 class="feature-title">
+            <a href="{{ route("puskesmas.rencana-usulan-kegiatan.index") }}">
+                Rencana Usulan Kegiatan
+            </a>
+
+            /
+
+            Tambah
+        </h1>
     </div>
 
     <div class="container-fluid">
@@ -14,10 +22,22 @@
                       action="{{ route("puskesmas.rencana-usulan-kegiatan.store") }}">
                     @csrf
 
-                    <x-input
-                        type="datetime-local"
-                        field="waktu_pembuatan"
-                    ></x-input>
+                    <div class="form-group">
+                        <label for="waktu_pembuatan"> Waktu Pembuatan: </label>
+                        <input
+                                id="waktu_pembuatan"
+                                type="datetime-local"
+                                placeholder="Waktu Pembuatan"
+                                class="form-control @error("waktu_pembuatan") is-invalid @enderror"
+                                name="waktu_pembuatan"
+                                value="{{ old("waktu_pembuatan") }}"
+                        />
+                        @error("waktu_pembuatan")
+                        <span class="invalid-feedback">
+                            {{ $message }}
+                        </span>
+                        @enderror
+                    </div>
 
                     <div class="table-responsive">
                         <table class="table table-sm">
