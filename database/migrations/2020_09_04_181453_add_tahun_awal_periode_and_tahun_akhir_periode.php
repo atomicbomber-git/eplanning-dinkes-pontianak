@@ -18,8 +18,6 @@ class AddTahunAwalPeriodeAndTahunAkhirPeriode extends Migration
             $table->unsignedInteger("tahun_awal_periode")->index();
             $table->unsignedInteger("tahun_akhir_periode");
         });
-
-        DB::unprepared("ALTER TABLE rencana_lima_tahunan ADD CONSTRAINT period_must_be_5_years_long CHECK ((tahun_akhir_periode - tahun_awal_periode) = 4)");
     }
 
     /**
