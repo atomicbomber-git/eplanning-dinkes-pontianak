@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Constants\MessageState;
 use App\Providers\AuthServiceProvider;
+use App\Support\SessionHelper;
 use App\UnitPuskesmas;
 use App\UpayaKesehatan;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class UpayaKesehatanForAdminController extends Controller
 {
@@ -35,9 +38,11 @@ class UpayaKesehatanForAdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(UnitPuskesmas $unitPuskesmas)
     {
-        //
+        return $this->responseFactory->view("upaya-kesehatan-for-admin.create", [
+            "unit_puskesmas" => $unitPuskesmas,
+        ]);
     }
 
     /**
@@ -46,9 +51,23 @@ class UpayaKesehatanForAdminController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, UnitPuskesmas $unitPuskesmas)
     {
-        //
+        $this->authorize(AuthServiceProvider::MANAGE_UPAYA_KESEHATAN);
+
+        $data = $request->validate([
+            "name" => ["required", "string", Rule::unique(UpayaKesehatan::class)->where("unit_puskesmas_id", $unitPuskesmas->id)]
+        ]);
+
+        $unitPuskesmas->update($data);
+
+        SessionHelper::flashMessage(
+            __("messages.create.success"),
+            MessageState::STATE_SUCCESS,
+        );
+
+        return redirect()
+
     }
 
     /**
@@ -70,7 +89,12 @@ class UpayaKesehatanForAdminController extends Controller
      */
     public function edit(UpayaKesehatan $upayaKesehatan)
     {
-        //
+        $this->authorize(AuthServiceProvider::MANAGE_UPAYA_KESEHATAN);
+
+        return $this->responseFactory->view("upaya-kesehatan-for-admin.edit", [
+            "upaya_kesehatan" => $upayaKesehatan
+                ->load("unit_puskesmas")
+        ]);
     }
 
     /**
@@ -78,11 +102,25 @@ class UpayaKesehatanForAdminController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\UpayaKesehatan  $upayaKesehatan
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, UpayaKesehatan $upayaKesehatan)
     {
-        //
+        $this->authorize(AuthServiceProvider::MANAGE_UPAYA_KESEHATAN);
+
+        $data = $request->validate([
+            "nama" => ["required", "string", Rule::unique(UpayaKesehatan::class)->ignoreModel($upayaKesehatan)]
+        ]);
+
+        $upayaKesehatan->update($data);
+
+        SessionHelper::flashMessage(
+            __("messages.update.success"),
+            MessageState::STATE_SUCCESS,
+        );
+
+        return redirect()
+            ->back();
     }
 
     /**

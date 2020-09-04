@@ -13,15 +13,31 @@
         Upaya Kesehatan
     </h1>
 
+    <div class="d-flex justify-content-center py-3">
+        <div class="flex-fill">
+
+        </div>
+
+        <div class="ml-3">
+            <a href="{{ route("unit-puskesmas-for-admin.upaya-kesehatan.create", $unitPuskesmasId) }}"
+               class="btn btn-dark"
+            >
+                Tambah
+            </a>
+        </div>
+    </div>
+
+    @include("components.messages")
+
     <div>
         @if($upaya_kesehatan_list->isNotEmpty())
             <div class="table-responsive">
                 <table class="table table-striped table-hover">
                     <thead class="thead-dark">
                     <tr>
-                        <th> # </th>
-                        <th> Nama </th>
-                        <th> Kendali </th>
+                        <th class="align-middle"> # </th>
+                        <th class="align-middle"> Nama </th>
+                        <th class="align-middle text-center"> Kendali </th>
                     </tr>
                     </thead>
 
@@ -30,7 +46,24 @@
                         <tr>
                             <td> {{ $upaya_kesehatan_list->firstItem() + $loop->index }} </td>
                             <td> {{ $upaya_kesehatan->nama }} </td>
-                            <td> Kendali </td>
+                            <td class="text-center">
+                                <a href="{{ route("upaya-kesehatan.edit", $upaya_kesehatan) }}" class="btn btn-dark">
+                                    Ubah
+                                </a>
+
+                                <button
+                                        x-data="{}"
+                                        x-on:click="
+                                        window.confirmDialog()
+                                            .then(response => {
+                                                if (response.value) {
+                                                        window.livewire.emit('upaya-kesehatan:delete', {{ $upaya_kesehatan->id }})
+                                                }
+                                            })"
+                                        class="btn btn-danger">
+                                    Hapus
+                                </button>
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>

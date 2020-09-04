@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire;
 
+use App\Constants\MessageState;
+use App\Support\SessionHelper;
 use App\UnitPuskesmas;
 use App\UpayaKesehatan;
 use Illuminate\Database\Eloquent\Builder;
@@ -12,6 +14,33 @@ use Livewire\Component;
 class UpayaKesehatanForAdminIndex extends Component
 {
     public $unitPuskesmasId;
+
+    protected $listeners = [
+        "upaya-kesehatan:delete" => "deleteUpayaKesehatan",
+    ];
+
+    public function deleteUpayaKesehatan($upaya_kesehatan_id)
+    {
+        try {
+             UpayaKesehatan::query()
+                ->whereKey($upaya_kesehatan_id)
+                ->delete();
+
+            UpayaKesehatan::query()
+                ->whereKey($upaya_kesehatan_id)
+                ->delete();
+
+            SessionHelper::flashMessage(
+                __("messages.delete.success"),
+                MessageState::STATE_SUCCESS,
+            );
+        } catch (\Throwable $throwable) {
+            SessionHelper::flashMessage(
+                __("messages.delete.failure"),
+                MessageState::STATE_DANGER,
+            );
+        }
+    }
 
     public function mount($unitPuskesmasId)
     {

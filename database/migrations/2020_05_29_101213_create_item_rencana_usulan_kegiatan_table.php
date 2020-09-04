@@ -32,10 +32,8 @@ class CreateItemRencanaUsulanKegiatanTable extends Migration
 
             $table->unique(['rencana_usulan_kegiatan_id', 'upaya_kesehatan_id'], 'rukid_ukid_unique');
 
-            $table->foreign('rencana_usulan_kegiatan_id')->references('id')->on('rencana_usulan_kegiatan')
-                ->cascadeOnDelete();
-            $table->foreign('upaya_kesehatan_id')->references('id')->on('upaya_kesehatan')
-                ->cascadeOnDelete();
+            $table->foreign('rencana_usulan_kegiatan_id')->references('id')->on('rencana_usulan_kegiatan');
+            $table->foreign('upaya_kesehatan_id')->references('id')->on('upaya_kesehatan');
         });
     }
 

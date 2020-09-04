@@ -29,11 +29,8 @@ class CreateItemRencanaLimaTahunanTable extends Migration
             $table->decimal('kebutuhan_anggaran', 19, 4)->nullable();
             $table->timestamps();
 
-            $table->foreign('upaya_kesehatan_id')->references('id')->on('upaya_kesehatan')
-                ->cascadeOnDelete();
-
-            $table->foreign('rencana_lima_tahunan_id')->references('id')->on('rencana_lima_tahunan')
-                ->cascadeOnDelete();
+            $table->foreign('upaya_kesehatan_id')->references('id')->on('upaya_kesehatan');
+            $table->foreign('rencana_lima_tahunan_id')->references('id')->on('rencana_lima_tahunan');
         });
     }
 

@@ -32,13 +32,11 @@ class CreateItemRencanaPelaksanaanKegiatanTahunanTable extends Migration
 
             $table->foreign('rencana_pelaksanaan_kegiatan_tahunan_id', "irpk-rpk-foreign")
                 ->references('id')
-                ->on('rencana_pelaksanaan_kegiatan_tahunan')
-                ->cascadeOnDelete();
+                ->on('rencana_pelaksanaan_kegiatan_tahunan');
 
             $table->foreign('upaya_kesehatan_id', 'irpk-up-foreign')
                 ->references('id')
-                ->on('upaya_kesehatan')
-                ->cascadeOnDelete();
+                ->on('upaya_kesehatan');
         });
     }
 

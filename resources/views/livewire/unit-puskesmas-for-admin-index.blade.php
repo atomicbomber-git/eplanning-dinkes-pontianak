@@ -13,7 +13,6 @@
                class="btn btn-dark"
             >
                 Tambah
-                <i class="fas fa-plus"></i>
             </a>
         </div>
     </div>
@@ -23,7 +22,7 @@
     <div>
         @if($unit_puskesmas_list->isNotEmpty())
             <div class="table-responsive">
-                <table class="table table-sm table-striped table-hover">
+                <table class="table table-striped table-hover">
                     <thead class="thead-dark">
                     <tr>
                         <th> # </th>
@@ -38,13 +37,12 @@
                             <td> {{ $unit_puskesmas_list->firstItem() + $loop->index }} </td>
                             <td> {{ $unit_puskesmas->nama }} </td>
                             <td class="text-center">
-                                <a href="{{ route("unit-puskesmas-for-admin.upaya-kesehatan.index", $unit_puskesmas) }}" class="btn btn-dark btn-sm">
+                                <a href="{{ route("unit-puskesmas-for-admin.upaya-kesehatan.index", $unit_puskesmas) }}" class="btn btn-dark">
                                     Upaya Kesehatan
                                 </a>
 
-                                <a href="{{ route("unit-puskesmas-for-admin.edit", $unit_puskesmas) }}" class="btn btn-dark btn-sm">
+                                <a href="{{ route("unit-puskesmas-for-admin.edit", $unit_puskesmas) }}" class="btn btn-dark">
                                     Ubah
-                                    <i class="fas fa-pencil-alt"></i>
                                 </a>
 
                                 <button
@@ -56,10 +54,9 @@
                                                     window.livewire.emit('unit-puskesmas:delete', {{ $unit_puskesmas->id }})
                                                 }
                                             })"
-                                        class="btn btn-danger btn-sm"
+                                        class="btn btn-danger"
                                 >
                                     Hapus
-                                    <i class="fas fa-trash  "></i>
                                 </button>
                             </td>
                         </tr>
