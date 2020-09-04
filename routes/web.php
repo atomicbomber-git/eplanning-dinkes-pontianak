@@ -40,13 +40,13 @@ Route::resource("unit-puskesmas-for-admin.upaya-kesehatan", class_basename(Upaya
 Route::resource("rencana-lima-tahunan-for-admin", class_basename(RencanaLimaTahunanForAdminController::class))
     ->parameter("rencana-lima-tahunan-for-admin", "rencana-lima-tahunan");
 
-//Route::resource("rencana-lima-tahunan-for-admin.penerimaan-rencana-lima-tahunan", class_basename(RencanaLimaTahunanForAdminController::class))
-//    ->parameters([
-//        "rencana-lima-tahunan-for-admin" => "rencana-lima-tahunan",
-//        "penerimaan-rencana-lima-tahunan" => "rencana-lima-tahunan",
-//    ])
-//    ->only(["store", "destroy"])
-//    ->shallow();
+Route::resource("rencana-lima-tahunan-for-admin.penerimaan", class_basename(RencanaLimaTahunanForAdminController::class))
+    ->parameters([
+        "rencana-lima-tahunan-for-admin" => "rencana-lima-tahunan",
+        "penerimaan" => "rencana-lima-tahunan",
+    ])
+    ->only(["store", "destroy"])
+    ->shallow();
 
 Route::group([
     "prefix" => "puskesmas",
