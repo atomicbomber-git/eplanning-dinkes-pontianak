@@ -49,25 +49,27 @@ class UpayaKesehatanForAdminController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request, UnitPuskesmas $unitPuskesmas)
     {
         $this->authorize(AuthServiceProvider::MANAGE_UPAYA_KESEHATAN);
 
         $data = $request->validate([
-            "name" => ["required", "string", Rule::unique(UpayaKesehatan::class)->where("unit_puskesmas_id", $unitPuskesmas->id)]
+            "nama" => ["required", "string", Rule::unique(UpayaKesehatan::class)->where("unit_puskesmas_id", $unitPuskesmas->id)]
         ]);
 
-        $unitPuskesmas->update($data);
+        $unitPuskesmas->upaya_kesehatan_list()->create($data);
 
         SessionHelper::flashMessage(
             __("messages.create.success"),
             MessageState::STATE_SUCCESS,
         );
 
-        return redirect()
-
+        return redirect()->route(
+            "unit-puskesmas-for-admin.upaya-kesehatan.index",
+            $unitPuskesmas
+        );
     }
 
     /**
