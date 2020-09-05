@@ -279,14 +279,18 @@ class RencanaLimaTahunanController extends Controller
      */
     public function destroy(RencanaLimaTahunan $rencana_lima_tahunan)
     {
-        $rencana_lima_tahunan->forceDelete();
+        DB::beginTransaction();
 
-        return redirect()->back()
-            ->with("messages", [
-                [
-                    "content" => __("messages.delete.success"),
-                    "state" => MessageState::STATE_SUCCESS
-                ]
-            ]);
+        $rencana_lima_tahunan->items()->delete();
+        $rencana_lima_tahunan->delete();
+
+        DB::commit();
+
+        SessionHelper::flashMessage(
+            __("messages.delete.success"),
+            MessageState::STATE_SUCCESS,
+        );
+
+        return redirect()->back();
     }
 }

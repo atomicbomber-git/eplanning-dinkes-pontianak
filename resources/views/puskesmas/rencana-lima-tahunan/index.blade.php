@@ -6,16 +6,16 @@
             Rencana Lima Tahunan
         </h1>
 
+        <x-messages></x-messages>
+
         <div class="d-flex justify-content-end py-3">
             <a class="btn btn-dark" href="{{ route("puskesmas.rencana-lima-tahunan.create") }}">
-                Tambah Rencana Lima Tahunan
+                Tambah
             </a>
         </div>
 
         <div class="card">
             <div class="card-body">
-                @include("layouts._messages")
-
                 <table class="table table-sm table-striped">
                     <thead class="thead thead-dark">
                     <tr>
@@ -53,7 +53,20 @@
 
                                 <form class="d-inline-block"
                                       action="{{ route('puskesmas.rencana-lima-tahunan.destroy', $rencana_lima_tahunan) }}"
-                                      method="post">
+                                      method="post"
+                                      x-data="{}"
+                                      x-on:submit.prevent="
+                                        window.confirmDialog()
+                                            .then(response => {
+                                                if (response.value) {
+                                                   $($event.target)
+                                                        .off('submit')
+                                                        .submit()
+                                                }
+                                            })
+"
+
+                                >
                                     @csrf
                                     @method("DELETE")
                                     <button class="btn btn-danger"

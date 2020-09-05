@@ -224,12 +224,17 @@ class RencanaUsulanKegiatanController extends Controller
      *
      * @param RencanaUsulanKegiatan $rencana_usulan_kegiatan
      *
-     * @return Response
+     * @return RedirectResponse
      */
     public function destroy(RencanaUsulanKegiatan $rencana_usulan_kegiatan
     )
     {
-        $rencana_usulan_kegiatan->forceDelete();
+        DB::beginTransaction();
+
+        $rencana_usulan_kegiatan->items()->delete();
+        $rencana_usulan_kegiatan->delete();
+
+        DB::commit();
 
         return redirect()->back()
             ->with("messages", [

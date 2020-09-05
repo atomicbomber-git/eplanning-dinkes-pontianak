@@ -6,16 +6,16 @@
             Rencana Pelaksanaan Kegiatan Tahunan
         </h1>
 
+        <x-messages></x-messages>
+
         <div class="d-flex justify-content-end py-3">
             <a class="btn btn-dark" href="{{ route("puskesmas.rpk-tahunan.create") }}">
-                Tambah Rencana Pelaksanaan Kegiatan Tahunan
+                Tambah
             </a>
         </div>
 
         <div class="card">
             <div class="card-body">
-                @include("layouts._messages")
-
                 <table class="table table-sm table-striped">
                     <thead class="thead thead-dark">
                     <tr>
