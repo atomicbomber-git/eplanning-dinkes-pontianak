@@ -30,6 +30,23 @@
                         :value="$rencana_usulan_kegiatan->waktu_pembuatan->format('Y-m-d\TH:i:s')"
                     ></x-input>
 
+                    <div class="form-group">
+                        <label for="tahun"> Tahun: </label>
+                        <input
+                                id="tahun"
+                                type="number"
+                                placeholder="Tahun"
+                                class="form-control @error("tahun") is-invalid @enderror"
+                                name="tahun"
+                                value="{{ old("tahun", $rencana_usulan_kegiatan->tahun) }}"
+                        />
+                        @error("tahun")
+                        <span class="invalid-feedback">
+                            {{ $message }}
+                        </span>
+                        @enderror
+                    </div>
+
                     <div class="table-responsive">
                         <table class="table table-sm">
                             <thead class="thead thead-dark">

@@ -20,7 +20,9 @@
                     <thead class="thead thead-dark">
                     <tr>
                         <th class="text-center"> # </th>
-                        <th> Tanggal Pembuatan </th>
+                        <th> Tahun </th>
+                        <th> Waktu Pembuatan </th>
+                        <th> Waktu Penerimaan </th>
                         <th class="text-center"> Aksi </th>
                     </tr>
                     </thead>
@@ -29,10 +31,22 @@
                     @foreach($rencana_usulan_kegiatan_list as $rencana_usulan_kegiatan)
                         <tr>
                             <td class="text-center"> {{ $loop->iteration }} </td>
+                            <td> {{ $rencana_usulan_kegiatan->tahun }} </td>
                             <td> {{ \App\Support\Formatter::fancyDatetime($rencana_usulan_kegiatan->waktu_pembuatan) }} </td>
+                            <td>
+                                @if($rencana_usulan_kegiatan->waktu_penerimaan)
+                                    <span class="badge badge-pill badge-success" style="font-size: 10pt">
+                                        {{ $rencana_usulan_kegiatan->waktu_penerimaan }}
+                                    </span>
+                                @else
+                                    <span class="badge badge-pill badge-danger" style="font-size: 10pt">
+                                        Belum Diterima
+                                    </span>
+                                @endif
+                            </td>
                             <td class="text-center">
                                 <a class="btn btn-dark" href="{{ route("puskesmas.rencana-usulan-kegiatan.edit", $rencana_usulan_kegiatan)  }}">
-                                    Sunting / Lihat
+                                    Ubah / Lihat
                                 </a>
 
                                 <form class="d-inline-block"

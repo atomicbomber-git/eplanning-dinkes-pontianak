@@ -20,8 +20,8 @@
                     <thead class="thead thead-dark">
                     <tr>
                         <th class="text-center"> # </th>
-                        <th> Waktu Pembuatan </th>
                         <th> Periode </th>
+                        <th> Waktu Pembuatan </th>
                         <th> Waktu Penerimaan </th>
                         <th class="text-center"> Aksi </th>
                     </tr>
@@ -31,10 +31,10 @@
                     @foreach($rencana_lima_tahunan_list as $rencana_lima_tahunan)
                         <tr>
                             <td class="text-center"> {{ $loop->iteration }} </td>
-                            <td> {{ \App\Support\Formatter::fancyDatetime($rencana_lima_tahunan->waktu_pembuatan) }} </td>
                             <td>
                                 {{ $rencana_lima_tahunan->tahun_awal_periode }}-{{ $rencana_lima_tahunan->tahun_akhir_periode }}
                             </td>
+                            <td> {{ \App\Support\Formatter::fancyDatetime($rencana_lima_tahunan->waktu_pembuatan) }} </td>
                             <td>
                                 @if($rencana_lima_tahunan->waktu_penerimaan)
                                     <span class="badge badge-pill badge-success" style="font-size: 10pt">
@@ -48,7 +48,7 @@
                             </td>
                             <td class="text-center">
                                 <a class="btn btn-dark" href="{{ route("puskesmas.rencana-lima-tahunan.edit", $rencana_lima_tahunan)  }}">
-                                    Sunting / Lihat
+                                    Ubah / Lihat
                                 </a>
 
                                 <form class="d-inline-block"

@@ -11,6 +11,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class RencanaUsulanKegiatanController extends Controller
 {
@@ -23,7 +24,7 @@ class RencanaUsulanKegiatanController extends Controller
     {
         $rencana_usulan_kegiatan_list = RencanaUsulanKegiatan::query()
             ->where("puskesmas_id", auth()->user()->puskesmas->id)
-            ->orderByDesc("waktu_pembuatan")
+            ->orderByDesc("tahun")
             ->paginate();
 
         return response()->view("puskesmas.rencana-usulan-kegiatan.index", compact(
@@ -59,6 +60,13 @@ class RencanaUsulanKegiatanController extends Controller
     {
         $data = $request->validate([
             "waktu_pembuatan" => ["required", "date"],
+            "tahun" => [
+                "required",
+                "integer",
+                "gte:0",
+                Rule::unique(RencanaUsulanKegiatan::class)
+                    ->where("puskesmas_id", auth()->user()->puskesmas->id)
+            ],
             "item_rencana_usulan_kegiatan_list.*.upaya_kesehatan_id" => ["required", "exists:upaya_kesehatan,id"],
             "item_rencana_usulan_kegiatan_list.*.kegiatan" => ["nullable", "string"],
             "item_rencana_usulan_kegiatan_list.*.tujuan" => ["nullable", "string"],
@@ -76,6 +84,7 @@ class RencanaUsulanKegiatanController extends Controller
         DB::beginTransaction();
 
         $rencana_usulan_kegiatan = RencanaUsulanKegiatan::query()->create([
+            "tahun" => $data["tahun"],
             "puskesmas_id" => auth()->user()->puskesmas->id,
             "waktu_pembuatan" => $data["waktu_pembuatan"],
         ]);
@@ -105,10 +114,9 @@ class RencanaUsulanKegiatanController extends Controller
      *
      * @return Response
      */
-    public function show(RencanaUsulanKegiatan $rencana_usulan_kegiatan
-    )
+    public function show(RencanaUsulanKegiatan $rencana_usulan_kegiatan)
     {
-        //
+
     }
 
     /**
@@ -149,6 +157,14 @@ class RencanaUsulanKegiatanController extends Controller
     {
         $data = $request->validate([
             "waktu_pembuatan" => ["required", "date"],
+            "tahun" => [
+                "required",
+                "integer",
+                "gte:0",
+                Rule::unique(RencanaUsulanKegiatan::class)
+                    ->where("puskesmas_id", auth()->user()->puskesmas->id)
+                    ->ignoreModel($rencana_usulan_kegiatan)
+            ],
             "item_rencana_usulan_kegiatan_list.*.id" => ["required", "exists:item_rencana_usulan_kegiatan,id"],
             "item_rencana_usulan_kegiatan_list.*.kegiatan" => ["nullable", "string"],
             "item_rencana_usulan_kegiatan_list.*.tujuan" => ["nullable", "string"],
@@ -166,6 +182,7 @@ class RencanaUsulanKegiatanController extends Controller
         DB::beginTransaction();
 
         $rencana_usulan_kegiatan->update([
+            "tahun" => $data["tahun"],
             "waktu_pembuatan" => $data["waktu_pembuatan"],
         ]);
 

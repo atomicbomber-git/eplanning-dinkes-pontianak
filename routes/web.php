@@ -23,7 +23,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Auth::routes();
+Auth::routes([
+    "register" => false,
+    "reset" => false,
+    "confirm" => false,
+    "verify" => false,
+]);
 
 Route::redirect("/", "/login");
 
