@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Constants\MessageState;
 use App\Providers\AuthServiceProvider;
 use App\RencanaPelaksanaanKegiatanTahunan ;
+use App\Support\SessionHelper;
 use App\UnitPuskesmas;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Database\Eloquent\Builder;
@@ -27,37 +29,6 @@ class RpkTahunanForAdminController extends Controller
     {
         $this->authorize(AuthServiceProvider::APPROVE_RPK_TAHUNAN);
         return $this->responseFactory->view("rpk-tahunan-for-admin.index");
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\RencanaPelaksanaanKegiatanTahunan  $rpkTahunan
-     * @return \Illuminate\Http\Response
-     */
-    public function show(RencanaPelaksanaanKegiatanTahunan $rpkTahunan)
-    {
-        //
     }
 
     /**
@@ -93,21 +64,25 @@ class RpkTahunanForAdminController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\RencanaPelaksanaanKegiatanTahunan  $rpkTahunan
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, RencanaPelaksanaanKegiatanTahunan $rpkTahunan)
     {
-        //
-    }
+        $data = $request->validate([
+            "diterima" => ["required", "boolean"]
+        ]);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\RencanaPelaksanaanKegiatanTahunan  $rpkTahunan
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(RencanaPelaksanaanKegiatanTahunan $rpkTahunan)
-    {
-        //
+        $rpkTahunan->update([
+            "waktu_penerimaan" =>
+                $data["diterima"] ?
+                    now() : null,
+        ]);
+
+        SessionHelper::flashMessage(
+            __("messages.update.success"),
+            MessageState::STATE_SUCCESS,
+        );
+
+        return $this->responseFactory->redirectToRoute("rpk-tahunan-for-admin.edit", $rpkTahunan);
     }
 }

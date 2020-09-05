@@ -3,7 +3,7 @@
 @section("content")
     <div class="container">
         <h1 class="feature-title">
-            <a href="{{ route("puskesmas.rpk-tahunan.index")  }}">
+            <a href="{{ route("rpk-tahunan-for-admin.index")  }}">
                 Rencana Pelaksanaan Kegiatan Tahunan
             </a>
 
@@ -129,12 +129,6 @@
                     @endforeach
                     </tbody>
                 </table>
-
-                <div class="form-group d-flex justify-content-end py-3">
-                    <button class="btn btn-lg btn-primary">
-                        Perbarui
-                    </button>
-                </div>
             </div>
         </div>
     </div>
