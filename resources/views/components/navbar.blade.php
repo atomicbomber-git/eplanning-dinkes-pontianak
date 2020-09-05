@@ -51,6 +51,13 @@
                         </a>
                     @endcan
 
+                    @can(\App\Providers\AuthServiceProvider::APPROVE_RPK_TAHUNAN)
+                        <a class="nav-link {{ \Illuminate\Support\Facades\Route::is("rpk-tahunan-for-admin.*") ? "active" : ""  }}"
+                           href="{{ route("rpk-tahunan-for-admin.index")}}">
+                            RPK Tahunan
+                        </a>
+                    @endcan
+
                     @if(auth()->user()->level === \App\Constants\UserLevel::ADMIN_PUSKESMAS)
                         <a class="nav-link {{ \Illuminate\Support\Facades\Route::is("puskesmas.rencana-lima-tahunan.*") ? "active" : ""  }}"
                            href="{{ route("puskesmas.rencana-lima-tahunan.index")}}"

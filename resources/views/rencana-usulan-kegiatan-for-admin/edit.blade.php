@@ -98,7 +98,7 @@
                                         {{ $upaya_kesehatan->item_rencana_usulan_kegiatan->tujuan }}
                                     </td>
                                     <td>
-                                    {{ $upaya_kesehatan->item_rencana_usulan_kegiatan->sasaran }}
+                                        {{ $upaya_kesehatan->item_rencana_usulan_kegiatan->sasaran }}
                                     <td>
                                         {{ $upaya_kesehatan->item_rencana_usulan_kegiatan->target_sasaran }}
                                     </td>

@@ -46,10 +46,9 @@
                             </td>
                             <td class="text-center">
                                 <a
-                                        class="btn btn-dark btn-sm"
+                                        class="btn btn-dark"
                                         href="{{ route("rencana-lima-tahunan-for-admin.edit", $rencana_lima_tahunan) }}">
                                     Ubah / Lihat
-                                    <i class="fas fa-pencil-alt"></i>
                                 </a>
                             </td>
                         </tr>

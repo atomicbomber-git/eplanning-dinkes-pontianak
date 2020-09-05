@@ -9,6 +9,7 @@ use App\Support\SessionHelper;
 use App\UnitPuskesmas;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -78,13 +79,11 @@ class RencanaUsulanKegiatanForAdminController extends Controller
             "rencana_usulan_kegiatan" => $rencanaUsulanKegiatan,
             "unit_puskesmases" =>
                 UnitPuskesmas::query()
-                    ->with("upaya_kesehatan_list")
-                    ->whereHas("upaya_kesehatan_list", function (Builder $builder) use ($rencanaUsulanKegiatan) {
-                        $builder->whereIn(
-                            "id",
-                            $rencanaUsulanKegiatan->items()->pluck("id"),
-                        );
-                    })
+                    ->with([
+                        "upaya_kesehatan_list.item_rencana_usulan_kegiatan" => function (HasOne $hasOne) use ($rencanaUsulanKegiatan) {
+                            $hasOne->where("rencana_usulan_kegiatan_id", $rencanaUsulanKegiatan->id);
+                        }
+                    ])
                     ->get()
         ]);
     }

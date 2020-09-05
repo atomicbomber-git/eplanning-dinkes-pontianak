@@ -8,6 +8,7 @@ use App\Http\Controllers\RencanaLimaTahunanForAdminController;
 use App\Http\Controllers\RencanaPelaksanaanKegiatanTahunanController;
 use App\Http\Controllers\RencanaUsulanKegiatanController;
 use App\Http\Controllers\RencanaUsulanKegiatanForAdminController;
+use App\Http\Controllers\RpkTahunanForAdminController;
 use App\Http\Controllers\UnitPuskesmasForAdminController;
 use App\Http\Controllers\UpayaKesehatanForAdminController;
 use Illuminate\Support\Facades\Auth;
@@ -48,6 +49,9 @@ Route::resource("rencana-lima-tahunan-for-admin", class_basename(RencanaLimaTahu
 
 Route::resource("rencana-usulan-kegiatan-for-admin", class_basename(RencanaUsulanKegiatanForAdminController::class))
     ->parameter("rencana-usulan-kegiatan-for-admin", "rencana-usulan-kegiatan");
+
+Route::resource("rpk-tahunan-for-admin", class_basename(RpkTahunanForAdminController::class))
+    ->parameter("rpk-tahunan-for-admin", "rpk-tahunan");
 
 Route::resource("rencana-lima-tahunan-for-admin.penerimaan", class_basename(RencanaLimaTahunanForAdminController::class))
     ->parameters([
