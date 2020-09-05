@@ -32,7 +32,7 @@
                             <td>
                                 @if($rencana_lima_tahunan->waktu_penerimaan)
                                     <span class="badge badge-pill badge-success" style="font-size: 10pt">
-                                        {{ $rencana_lima_tahunan->waktu_penerimaan }}
+                                        {{ \App\Support\Formatter::fancyDatetime($rencana_lima_tahunan->waktu_penerimaan) }}
                                     </span>
                                 @else
                                     <span class="badge badge-pill badge-danger" style="font-size: 10pt">

@@ -38,9 +38,16 @@
                     @endcan
 
                     @can(\App\Providers\AuthServiceProvider::VIEW_ANY_RENCANA_LIMA_TAHUNAN)
-                        <a class="nav-link {{ \Illuminate\Support\Facades\Route::is("rencana-lima-tahunan.*") ? "active" : ""  }}"
+                        <a class="nav-link {{ \Illuminate\Support\Facades\Route::is("rencana-lima-tahunan-for-admin.*") ? "active" : ""  }}"
                            href="{{ route("rencana-lima-tahunan-for-admin.index")}}">
-                            Rencana Lima Tahunan
+                            RLT
+                        </a>
+                    @endcan
+
+                    @can(\App\Providers\AuthServiceProvider::VIEW_ANY_RENCANA_LIMA_TAHUNAN)
+                        <a class="nav-link {{ \Illuminate\Support\Facades\Route::is("rencana-usulan-kegiatan-for-admin.*") ? "active" : ""  }}"
+                           href="{{ route("rencana-usulan-kegiatan-for-admin.index")}}">
+                            RUK
                         </a>
                     @endcan
 

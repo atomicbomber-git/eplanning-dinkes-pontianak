@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Constants\MessageState;
 use App\ItemRencanaUsulanKegiatan;
+use App\Providers\AuthServiceProvider;
 use App\RencanaUsulanKegiatan;
 use App\UnitPuskesmas;
+use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -15,6 +17,13 @@ use Illuminate\Validation\Rule;
 
 class RencanaUsulanKegiatanController extends Controller
 {
+    private $responseFactory;
+
+    public function __construct(ResponseFactory $responseFactory)
+    {
+        $this->responseFactory = $responseFactory;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -22,6 +31,8 @@ class RencanaUsulanKegiatanController extends Controller
      */
     public function index()
     {
+        $this->authorize(AuthServiceProvider::MANAGE_RENCANA_USULAN_KEGIATAN);
+
         $rencana_usulan_kegiatan_list = RencanaUsulanKegiatan::query()
             ->where("puskesmas_id", auth()->user()->puskesmas->id)
             ->orderByDesc("tahun")

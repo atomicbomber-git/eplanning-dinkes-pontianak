@@ -7,7 +7,6 @@ use App\Providers\AuthServiceProvider;
 use App\RencanaLimaTahunan;
 use App\Support\SessionHelper;
 use App\UnitPuskesmas;
-use App\UpayaKesehatan;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;

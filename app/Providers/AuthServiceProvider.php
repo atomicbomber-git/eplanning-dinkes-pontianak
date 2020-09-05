@@ -26,6 +26,8 @@ class AuthServiceProvider extends ServiceProvider
     const MANAGE_PUSKESMAS = "manage-puskesmas";
     const MANAGE_UNIT_PUSKESMAS = "manage-unit-puskesmas";
     const MANAGE_UPAYA_KESEHATAN = "manage-upaya-kesehatan";
+    const MANAGE_RENCANA_USULAN_KEGIATAN = "manage-rencana-usulan-kegiatan";
+    const APPROVE_RENCANA_USULAN_KEGIATAN = "approve-rencana-usulan-kegiatan";
 
     /**
      * Register any authentication / authorization services.
@@ -58,6 +60,14 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define(self::VIEW_OWN_RENCANA_LIMA_TAHUNAN, function (User $user) {
             return $user->level === UserLevel::ADMIN_PUSKESMAS;
+        });
+
+        Gate::define(self::MANAGE_RENCANA_USULAN_KEGIATAN, function (User $user) {
+            return $user->level === UserLevel::ADMIN_PUSKESMAS;
+        });
+
+        Gate::define(self::APPROVE_RENCANA_USULAN_KEGIATAN, function (User $user) {
+            return $user->level === UserLevel::ADMIN_DINAS_KESEHATAN;
         });
     }
 }
