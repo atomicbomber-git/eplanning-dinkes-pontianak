@@ -23,6 +23,8 @@ class RencanaUsulanKegiatanSeeder extends Seeder
         $upaya_kesehatan_list = \App\UpayaKesehatan::query()->get();
 
         foreach ($puskesmas_list as $puskesmas) {
+            app('Faker\Generator')->resetIndex();
+
              $rencana_usulan_kegiatan_list = factory(RencanaUsulanKegiatan::class, static::N_RUK_PER_PUSKESMAS)
                 ->create([
                     "puskesmas_id" => $puskesmas->id,

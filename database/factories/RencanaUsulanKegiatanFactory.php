@@ -6,7 +6,13 @@ use App\RencanaUsulanKegiatan;
 use Faker\Generator as Faker;
 
 $factory->define(RencanaUsulanKegiatan::class, function (Faker $faker) {
+    $index = $faker->index();
+    $year = 2000 + $index;
+
     return [
-        "waktu_pembuatan" => now()->subMinutes(rand(0, 60 * 24 * 30))
+        "tahun" => $year,
+        "waktu_pembuatan" => now()
+            ->addDays(rand(0, 365))
+            ->setYear($year)
     ];
 });

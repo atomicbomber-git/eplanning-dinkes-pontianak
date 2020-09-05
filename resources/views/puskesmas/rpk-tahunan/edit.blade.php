@@ -2,7 +2,15 @@
 
 @section("content")
     <div class="container">
-        <h1> Sunting Rencana Usulan Kegiatan </h1>
+        <h1 class="feature-title">
+            <a href="{{ route("puskesmas.rpk-tahunan.index")  }}">
+                Rencana Pelaksanaan Kegiatan Tahunan
+            </a>
+
+            /
+
+            Ubah
+        </h1>
     </div>
 
     <div class="container-fluid">
@@ -11,153 +19,234 @@
                 @include("layouts._messages")
 
                 <form method="POST"
-                      action="{{ route("puskesmas.rpk-tahunan.update", $rpk_tahunan) }}">
-                    @method("PATCH")
+                      action="{{ route("puskesmas.rpk-tahunan.store") }}">
                     @csrf
 
-                    <x-input
-                        field="tahun"
-                        label="Tahun"
-                        type="number"
-                        step="1"
-                        :value="$rpk_tahunan->tahun"
-                    ></x-input>
-
-                    <div class="table-responsive">
-                        <table class="table table-sm">
-                            <thead class="thead thead-dark">
-                            <tr>
-                                <th> No </th>
-                                <th> Upaya Kesehatan </th>
-                                <th> Kegiatan </th>
-                                <th> Tujuan </th>
-                                <th> Sasaran </th>
-                                <th> Target Sasaran </th>
-                                <th> Penanggung Jawab </th>
-                                <th> Volume Kegiatan </th>
-                                <th> Jadwal </th>
-                                <th> Rincian Pelaksanaan </th>
-                                <th> Lokasi Pelaksanaan </th>
-                                <th> Biaya </th>
-                            </tr>
-                            </thead>
-
-                            <tbody>
-                            @foreach($unit_puskesmas_list AS $unit_puskesmas)
-                                <tr class="font-weight-bold">
-                                    <td colspan="12"> {{ $unit_puskesmas->nama  }} </td>
-                                </tr>
-
-                                @foreach($unit_puskesmas->upaya_kesehatan_list AS $upaya_kesehatan)
-                                    <tr>
-                                        <td> {{ $loop->iteration }} </td>
-                                        <td> {{ $upaya_kesehatan->nama }} </td>
-
-                                        <td>
-                                            <x-inline-textarea
-                                                field="kegiatan"
-                                                array_name="item_rencana_pelaksanaan_kegiatan_tahunan_list"
-                                                :row_id="$upaya_kesehatan->item_rencana_pelaksanaan_kegiatan_tahunan->id"
-                                                :item="$upaya_kesehatan->item_rencana_pelaksanaan_kegiatan_tahunan"
-                                                placeholder="Kegiatan"
-                                            ></x-inline-textarea>
-
-                                            <input
-                                                name="item_rencana_pelaksanaan_kegiatan_tahunan_list[{{ $upaya_kesehatan->item_rencana_pelaksanaan_kegiatan_tahunan->id }}][id]"
-                                                type="hidden"
-                                                value="{{ $upaya_kesehatan->item_rencana_pelaksanaan_kegiatan_tahunan->id }}"
-                                            >
-                                        </td>
-
-                                        <td>
-                                            <x-inline-textarea
-                                                field="tujuan"
-                                                array_name="item_rencana_pelaksanaan_kegiatan_tahunan_list"
-                                                :row_id="$upaya_kesehatan->item_rencana_pelaksanaan_kegiatan_tahunan->id"
-                                                :item="$upaya_kesehatan->item_rencana_pelaksanaan_kegiatan_tahunan"
-                                                placeholder="Tujuan"
-                                            ></x-inline-textarea>
-                                        </td>
-                                        <td>
-                                            <x-inline-textarea
-                                                field="sasaran"
-                                                array_name="item_rencana_pelaksanaan_kegiatan_tahunan_list"
-                                                :row_id="$upaya_kesehatan->item_rencana_pelaksanaan_kegiatan_tahunan->id"
-                                                :item="$upaya_kesehatan->item_rencana_pelaksanaan_kegiatan_tahunan"
-                                                placeholder="Sasaran"
-                                            ></x-inline-textarea>
-                                        </td>
-                                        <td>
-                                            <x-inline-textarea
-                                                field="target_sasaran"
-                                                array_name="item_rencana_pelaksanaan_kegiatan_tahunan_list"
-                                                :row_id="$upaya_kesehatan->item_rencana_pelaksanaan_kegiatan_tahunan->id"
-                                                :item="$upaya_kesehatan->item_rencana_pelaksanaan_kegiatan_tahunan"
-                                                placeholder="Target Sasaran"
-                                            ></x-inline-textarea>
-                                        </td>
-                                        <td>
-                                            <x-inline-textarea
-                                                field="penanggung_jawab"
-                                                array_name="item_rencana_pelaksanaan_kegiatan_tahunan_list"
-                                                :row_id="$upaya_kesehatan->item_rencana_pelaksanaan_kegiatan_tahunan->id"
-                                                :item="$upaya_kesehatan->item_rencana_pelaksanaan_kegiatan_tahunan"
-                                                placeholder="Penanggung Jawab"
-                                            ></x-inline-textarea>
-                                        </td>
-                                        <td>
-                                            <x-inline-textarea
-                                                field="volume_kegiatan"
-                                                array_name="item_rencana_pelaksanaan_kegiatan_tahunan_list"
-                                                :row_id="$upaya_kesehatan->item_rencana_pelaksanaan_kegiatan_tahunan->id"
-                                                :item="$upaya_kesehatan->item_rencana_pelaksanaan_kegiatan_tahunan"
-                                                placeholder="Volume Kegiatan"
-                                            ></x-inline-textarea>
-                                        </td>
-                                        <td>
-                                            <x-inline-textarea
-                                                field="jadwal"
-                                                array_name="item_rencana_pelaksanaan_kegiatan_tahunan_list"
-                                                :row_id="$upaya_kesehatan->item_rencana_pelaksanaan_kegiatan_tahunan->id"
-                                                :item="$upaya_kesehatan->item_rencana_pelaksanaan_kegiatan_tahunan"
-                                                placeholder="Jadwal"
-                                            ></x-inline-textarea>
-                                        </td>
-                                        <td>
-                                            <x-inline-textarea
-                                                field="rincian_pelaksanaan"
-                                                array_name="item_rencana_pelaksanaan_kegiatan_tahunan_list"
-                                                :row_id="$upaya_kesehatan->item_rencana_pelaksanaan_kegiatan_tahunan->id"
-                                                :item="$upaya_kesehatan->item_rencana_pelaksanaan_kegiatan_tahunan"
-                                                placeholder="Rincian Pelaksanaan"
-                                            ></x-inline-textarea>
-                                        </td>
-                                        <td>
-                                            <x-inline-textarea
-                                                field="lokasi_pelaksanaan"
-                                                array_name="item_rencana_pelaksanaan_kegiatan_tahunan_list"
-                                                :row_id="$upaya_kesehatan->item_rencana_pelaksanaan_kegiatan_tahunan->id"
-                                                :item="$upaya_kesehatan->item_rencana_pelaksanaan_kegiatan_tahunan"
-                                                placeholder="Lokasi Pelaksanaan"
-                                            ></x-inline-textarea>
-                                        </td>
-                                        <td>
-                                            <x-inline-input
-                                                placeholder="Biaya"
-                                                array_name="item_rencana_pelaksanaan_kegiatan_tahunan_list"
-                                                field="biaya"
-                                                :item="$upaya_kesehatan->item_rencana_pelaksanaan_kegiatan_tahunan"
-                                                :row_id="$upaya_kesehatan->item_rencana_pelaksanaan_kegiatan_tahunan->id"
-                                                type="number"
-                                                step="any"
-                                            ></x-inline-input>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            @endforeach
-                            </tbody>
-                        </table>
+                    <div class="form-group">
+                        <label for="waktu_pembuatan"> Waktu Pembuatan: </label>
+                        <input
+                                id="waktu_pembuatan"
+                                type="datetime-local"
+                                placeholder="Waktu Pembuatan"
+                                class="form-control @error("waktu_pembuatan") is-invalid @enderror"
+                                name="waktu_pembuatan"
+                                value="{{ old("waktu_pembuatan", $rpk_tahunan->waktu_pembuatan->format('Y-m-d\TH:i:s')) }}"
+                        />
+                        @error("waktu_pembuatan")
+                        <span class="invalid-feedback">
+                            {{ $message }}
+                        </span>
+                        @enderror
                     </div>
+
+                    <div class="form-group">
+                        <label for="tahun"> Tahun: </label>
+                        <input
+                                id="tahun"
+                                type="number"
+                                placeholder="Tahun"
+                                class="form-control @error("tahun") is-invalid @enderror"
+                                name="tahun"
+                                value="{{ old("tahun", $rpk_tahunan->tahun) }}"
+                        />
+                        @error("tahun")
+                        <span class="invalid-feedback">
+                            {{ $message }}
+                        </span>
+                        @enderror
+                    </div>
+                    
+                    <table class="table table-sm">
+                        
+                        <thead class="thead-dark">
+                            <tr>
+                                <th class="align-middle"> # </th>
+                                <th class="align-middle"> Kegiatan </th>
+                                <th class="align-middle"> Tujuan </th>
+                                <th class="align-middle"> Sasaran </th>
+                                <th class="align-middle"> Target Sasaran </th>
+                                <th class="align-middle"> Penanggung Jawab </th>
+                                <th class="align-middle"> Volume Kegiatan </th>
+                                <th class="align-middle"> Jadwal </th>
+                                <th class="align-middle"> Rincian Pelaksanaan </th>
+                                <th class="align-middle"> Lokasi Pelaksanaan </th>
+                                <th class="align-middle text-right"> Biaya </th>
+                            </tr>
+                        </thead>
+                        
+                        <tbody>
+                        @foreach ($unit_puskesmases as $unit_puskesmas)
+                            <tr class="border-top">
+                               <td colspan="12" class="font-weight-bold">
+                                   {{ $unit_puskesmas->nama }}
+                               </td>
+                            </tr>
+
+                            @foreach ($unit_puskesmas->upaya_kesehatan_list as $upaya_kesehatan)
+                                <tr>
+                                    <td>
+                                        {{ $loop->iteration }}
+                                        <label for="upaya_kesehatan_id">
+                                                <input
+                                                        type="hidden"
+                                                        class="form-control @error("upaya_kesehatan_id") is-invalid @enderror"
+                                                        name="item[{{ "{$loop->parent->index}{$loop->index}" }}][upaya_kesehatan_id]"
+                                                        value="{{ $upaya_kesehatan->id }}"
+                                                />
+                                            @error("upaya_kesehatan_id")
+                                                <span class="invalid-feedback">
+                                                    {{ $message }}
+                                                </span>
+                                            @enderror
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label for="kegiatan">
+                                                <textarea
+                                                        placeholder="Kegiatan"
+                                                        class="form-control @error("kegiatan") is-invalid @enderror"
+                                                        name="item[{{ "{$loop->parent->index}{$loop->index}" }}][kegiatan]"
+                                                >{{ old("item.{$loop->parent->index}{$loop->index}.kegiatan", $items[$upaya_kesehatan->id]->kegiatan) }}</textarea>
+                                            @error("kegiatan")
+                                            <span class="invalid-feedback">
+                                                {{ $message }}
+                                            </span>
+                                            @enderror
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label for="tujuan">
+                                                <textarea
+                                                        placeholder="Tujuan"
+                                                        class="form-control @error("tujuan") is-invalid @enderror"
+                                                        name="item[{{ "{$loop->parent->index}{$loop->index}" }}][tujuan]"
+                                                >{{ old("item.{$loop->parent->index}{$loop->index}.tujuan", $items[$upaya_kesehatan->id]->tujuan) }}</textarea>
+                                            @error("tujuan")
+                                            <span class="invalid-feedback">
+                                                    {{ $message }}
+                                                </span>
+                                            @enderror
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label for="sasaran">
+                                                <textarea
+                                                        placeholder="Sasaran"
+                                                        class="form-control @error("sasaran") is-invalid @enderror"
+                                                        name="item[{{ "{$loop->parent->index}{$loop->index}" }}][sasaran]"
+                                                >{{ old("item.{$loop->parent->index}{$loop->index}.sasaran", $items[$upaya_kesehatan->id]->sasaran) }}</textarea>
+                                            @error("sasaran")
+                                            <span class="invalid-feedback">
+                                                    {{ $message }}
+                                                </span>
+                                            @enderror
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label for="target_sasaran">
+                                                <textarea
+                                                        placeholder="Target Sasaran"
+                                                        class="form-control @error("target_sasaran") is-invalid @enderror"
+                                                        name="item[{{ "{$loop->parent->index}{$loop->index}" }}][target_sasaran]"
+                                                >{{ old("item.{$loop->parent->index}{$loop->index}.target_sasaran", $items[$upaya_kesehatan->id]->target_sasaran) }}</textarea>
+                                            @error("target_sasaran")
+                                            <span class="invalid-feedback">
+                                                    {{ $message }}
+                                                </span>
+                                            @enderror
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label for="penanggung_jawab">
+                                                <textarea
+                                                        placeholder="Penanggung Jawab"
+                                                        class="form-control @error("penanggung_jawab") is-invalid @enderror"
+                                                        name="item[{{ "{$loop->parent->index}{$loop->index}" }}][penanggung_jawab]"
+                                                >{{ old("item.{$loop->parent->index}{$loop->index}.penanggung_jawab", $items[$upaya_kesehatan->id]->penanggung_jawab) }}</textarea>
+                                            @error("penanggung_jawab")
+                                            <span class="invalid-feedback">
+                                                    {{ $message }}
+                                                </span>
+                                            @enderror
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label for="volume_kegiatan">
+                                                <textarea
+                                                        placeholder="Volume Kegiatan"
+                                                        class="form-control @error("volume_kegiatan") is-invalid @enderror"
+                                                        name="item[{{ "{$loop->parent->index}{$loop->index}" }}][volume_kegiatan]"
+                                                >{{ old("item.{$loop->parent->index}{$loop->index}.volume_kegiatan", $items[$upaya_kesehatan->id]->volume_kegiatan) }}</textarea>
+                                            @error("volume_kegiatan")
+                                            <span class="invalid-feedback">
+                                                    {{ $message }}
+                                                </span>
+                                            @enderror
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label for="jadwal">
+                                                <textarea
+                                                        placeholder="Jadwal"
+                                                        class="form-control @error("jadwal") is-invalid @enderror"
+                                                        name="item[{{ "{$loop->parent->index}{$loop->index}" }}][jadwal]"
+                                                >{{ old("item.{$loop->parent->index}{$loop->index}.jadwal", $items[$upaya_kesehatan->id]->jadwal) }}</textarea>
+                                            @error("jadwal")
+                                            <span class="invalid-feedback">
+                                                    {{ $message }}
+                                                </span>
+                                            @enderror
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label for="rincian_pelaksanaan">
+                                                <textarea
+                                                        placeholder="Rincian Pelaksanaan"
+                                                        class="form-control @error("rincian_pelaksanaan") is-invalid @enderror"
+                                                        name="item[{{ "{$loop->parent->index}{$loop->index}" }}][rincian_pelaksanaan]"
+                                                >{{ old("item.{$loop->parent->index}{$loop->index}.rincian_pelaksanaan", $items[$upaya_kesehatan->id]->rincian_pelaksanaan) }}</textarea>
+                                            @error("rincian_pelaksanaan")
+                                            <span class="invalid-feedback">
+                                                    {{ $message }}
+                                                </span>
+                                            @enderror
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label for="lokasi_pelaksanaan">
+                                                <textarea
+                                                        placeholder="Lokasi Pelaksanaan"
+                                                        class="form-control @error("lokasi_pelaksanaan") is-invalid @enderror"
+                                                        name="item[{{ "{$loop->parent->index}{$loop->index}" }}][lokasi_pelaksanaan]"
+                                                >{{ old("item.{$loop->parent->index}{$loop->index}.lokasi_pelaksanaan", $items[$upaya_kesehatan->id]->lokasi_pelaksanaan) }}</textarea>
+                                            @error("lokasi_pelaksanaan")
+                                            <span class="invalid-feedback">
+                                                    {{ $message }}
+                                                </span>
+                                            @enderror
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label for="biaya">
+                                                <input
+                                                        type="number"
+                                                        placeholder="Biaya"
+                                                        class="text-right form-control @error("biaya") is-invalid @enderror"
+                                                        name="item[{{ "{$loop->parent->index}{$loop->index}" }}][biaya]"
+                                                        value="{{ \App\Support\Formatter::normalizeNumber(old("item.{$loop->parent->index}{$loop->index}.biaya", $items[$upaya_kesehatan->id]->biaya)) }}"
+                                                />
+                                            @error("biaya")
+                                                <span class="invalid-feedback">
+                                                    {{ $message }}
+                                                </span>
+                                            @enderror
+                                        </label>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @endforeach
+                        </tbody>
+                    </table>
 
                     <div class="form-group d-flex justify-content-end py-3">
                         <button class="btn btn-lg btn-primary">

@@ -5,12 +5,15 @@ namespace App\Http\Controllers;
 use App\Constants\MessageState;
 use App\ItemRencanaPelaksanaanKegiatanTahunan;
 use App\RencanaPelaksanaanKegiatanTahunan;
+use App\Support\SessionHelper;
 use App\UnitPuskesmas;
 use App\UpayaKesehatan;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
@@ -24,6 +27,7 @@ class RencanaPelaksanaanKegiatanTahunanController extends Controller
     public function index()
     {
         $rencana_pelaksanaan_kegiatan_tahunan_list = RencanaPelaksanaanKegiatanTahunan::query()
+            ->withTotalBiaya()
             ->where("puskesmas_id", auth()->user()->puskesmas->id)
             ->orderByDesc("tahun")
             ->paginate();
@@ -40,14 +44,14 @@ class RencanaPelaksanaanKegiatanTahunanController extends Controller
      */
     public function create()
     {
-        $unit_puskesmas_list = UnitPuskesmas::query()
+        $unit_puskesmases = UnitPuskesmas::query()
             ->with([
                 "upaya_kesehatan_list",
             ])
             ->get();
 
-        return \response()->view("puskesmas.rpk-tahunan.create", compact(
-            "unit_puskesmas_list"
+        return response()->view("puskesmas.rpk-tahunan.create", compact(
+            "unit_puskesmases"
         ));
     }
 
@@ -62,38 +66,51 @@ class RencanaPelaksanaanKegiatanTahunanController extends Controller
         $puskesmas_id = auth()->user()->puskesmas->id;
 
         $data = $request->validate([
+            "waktu_pembuatan" => ["required", "date"],
             "tahun" => [
                 "required",
                 "numeric",
                 Rule::unique(RencanaPelaksanaanKegiatanTahunan::class)
                     ->where("puskesmas_id", $puskesmas_id)
-            ]
+            ],
+            "item.*.upaya_kesehatan_id" => ["required", Rule::exists(UpayaKesehatan::class, "id")],
+            "item.*.kegiatan" => ["nullable", "string"],
+            "item.*.tujuan" => ["nullable", "string"],
+            "item.*.sasaran" => ["nullable", "string"],
+            "item.*.target_sasaran" => ["nullable", "string"],
+            "item.*.penanggung_jawab" => ["nullable", "string"],
+            "item.*.volume_kegiatan" => ["nullable", "string"],
+            "item.*.jadwal" => ["nullable", "string"],
+            "item.*.rincian_pelaksanaan" => ["nullable", "string"],
+            "item.*.lokasi_pelaksanaan" => ["nullable", "string"],
+            "item.*.biaya" => ["nullable", "numeric", "gte:0"],
         ]);
+        
+        DB::beginTransaction();
+        
+        /** @var RencanaPelaksanaanKegiatanTahunan $rpkTahunan */
+        $rpkTahunan = RencanaPelaksanaanKegiatanTahunan::query()
+            ->create(array_merge(
+                Arr::only($data, [
+                        "waktu_pembuatan",
+                        "tahun",
+                    ]),
 
-        $rpk_tahunan = RencanaPelaksanaanKegiatanTahunan::query()->create(array_merge($data, [
-            "puskesmas_id" => $puskesmas_id
-        ]));
+                ["puskesmas_id" => $puskesmas_id]
+            ));
+        
+        foreach ($data["item"] as $itemData) {
+            $rpkTahunan->items()->create($itemData);
+        }
+        
+        DB::commit();
+        
+        SessionHelper::flashMessage(
+            __("messages.create.success"),
+            MessageState::STATE_SUCCESS,
+        );
 
-        return redirect()->route(
-            "puskesmas.rpk-tahunan.item-rpk-tahunan.index",
-            $rpk_tahunan
-        )->with("messages", [
-            [
-                "content" => __("messages.delete.success"),
-                "state" => MessageState::STATE_SUCCESS
-            ]
-        ]);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param RencanaPelaksanaanKegiatanTahunan $rpk_tahunan
-     * @return Response
-     */
-    public function show(RencanaPelaksanaanKegiatanTahunan $rpk_tahunan)
-    {
-        //
+        return \response()->redirectToRoute("puskesmas.rpk-tahunan.index");
     }
 
     /**
@@ -105,18 +122,25 @@ class RencanaPelaksanaanKegiatanTahunanController extends Controller
     public function edit(RencanaPelaksanaanKegiatanTahunan $rpk_tahunan)
     {
         $unit_puskesmas_list = UnitPuskesmas::query()
-            ->with([
-                "upaya_kesehatan_list",
-                "upaya_kesehatan_list.item_rencana_pelaksanaan_kegiatan_tahunan" => function (HasOne $hasOne) use ($rpk_tahunan) {
-                    $hasOne->where("rencana_pelaksanaan_kegiatan_tahunan_id", $rpk_tahunan->id);
-                },
-            ])
+            ->with("upaya_kesehatan_list")
+            ->whereHas("upaya_kesehatan_list", function (Builder $builder) use ($rpk_tahunan) {
+                $builder->whereIn(
+                    "id",
+                    $rpk_tahunan
+                        ->items()
+                        ->distinct()
+                        ->pluck("upaya_kesehatan_id"),
+                );
+            })
             ->get();
 
-        return response()->view("puskesmas.rpk-tahunan.edit", compact(
-            "rpk_tahunan",
-            "unit_puskesmas_list"
-        ));
+        return response()->view("puskesmas.rpk-tahunan.edit", [
+             "rpk_tahunan" => $rpk_tahunan,
+             "items" => $rpk_tahunan->items()
+                ->get()
+                ->keyBy("upaya_kesehatan_id"),
+             "unit_puskesmases" => $unit_puskesmas_list
+        ]);
     }
 
     /**

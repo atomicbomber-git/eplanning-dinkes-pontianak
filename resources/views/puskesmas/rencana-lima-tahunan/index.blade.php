@@ -30,7 +30,7 @@
                     <tbody>
                     @foreach($rencana_lima_tahunan_list as $rencana_lima_tahunan)
                         <tr>
-                            <td class="text-center"> {{ $loop->iteration }} </td>
+                            <td class="text-center"> {{ $rencana_lima_tahunan_list->firstItem() + $loop->index }} </td>
                             <td>
                                 {{ $rencana_lima_tahunan->tahun_awal_periode }}-{{ $rencana_lima_tahunan->tahun_akhir_periode }}
                             </td>

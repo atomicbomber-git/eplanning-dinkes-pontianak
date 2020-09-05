@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class RencanaLimaTahunanSeeder extends Seeder
 {
-    const N_RENCANA_PER_PUSKESMAS = 30;
+    const N_RENCANA_PER_PUSKESMAS = 15;
 
     /**
      * Run the database seeds.
@@ -27,6 +27,8 @@ class RencanaLimaTahunanSeeder extends Seeder
             ->get();
 
         foreach ($puskesmases as $puskesmas) {
+            app(\Faker\Generator::class)->resetIndex();
+
             $rencana_lima_tahunan_list = factory(RencanaLimaTahunan::class, static::N_RENCANA_PER_PUSKESMAS)
                 ->create([
                     "waktu_pembuatan" => Carbon::now()->subMinutes(rand(0, 60 * 24 * 30)),
