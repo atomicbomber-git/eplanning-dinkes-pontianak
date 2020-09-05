@@ -14,6 +14,10 @@ class Formatter
 
     public static function currency($amount): string
     {
+        if (empty($amount)) {
+            return "-";
+        }
+
         return number_format($amount);
     }
 

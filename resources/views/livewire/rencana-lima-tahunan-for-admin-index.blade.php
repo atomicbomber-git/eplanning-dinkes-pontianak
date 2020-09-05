@@ -16,6 +16,7 @@
                         <th> Waktu Pembuatan </th>
                         <th> Periode </th>
                         <th> Waktu Penerimaan </th>
+                        <th class="text-right"> Total Kebutuhan Anggaran (Rp.) </th>
                         <th class="text-center"> Kendali </th>
                     </tr>
                     </thead>
@@ -39,6 +40,9 @@
                                         Belum Diterima
                                     </span>
                                 @endif
+                            </td>
+                            <td class="text-right">
+                                {{ \App\Support\Formatter::currency($rencana_lima_tahunan->total_kebutuhan_anggaran) }}
                             </td>
                             <td class="text-center">
                                 <a

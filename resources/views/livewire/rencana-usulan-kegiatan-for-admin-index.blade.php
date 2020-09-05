@@ -12,6 +12,7 @@
                     <th> Tahun </th>
                     <th> Waktu Pembuatan </th>
                     <th> Waktu Penerimaan </th>
+                    <th class="text-right"> Total Kebutuhan Anggaran (Rp.) </th>
                     <th class="text-center"> Aksi </th>
                 </tr>
                 </thead>
@@ -33,6 +34,10 @@
                                 </span>
                             @endif
                         </td>
+                        <td class="text-right">
+                            {{ \App\Support\Formatter::currency($rencana_usulan_kegiatan->total_kebutuhan_anggaran) }}
+                        </td>
+
                         <td class="text-center">
                             <a class="btn btn-dark" href="{{ route("rencana-usulan-kegiatan-for-admin.edit", $rencana_usulan_kegiatan)  }}">
                                 Ubah / Lihat

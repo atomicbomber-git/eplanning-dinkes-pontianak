@@ -34,9 +34,12 @@ class RencanaUsulanKegiatanController extends Controller
         $this->authorize(AuthServiceProvider::MANAGE_RENCANA_USULAN_KEGIATAN);
 
         $rencana_usulan_kegiatan_list = RencanaUsulanKegiatan::query()
+            ->select("*")
+            ->withTotalKebutuhanAnggaran()
             ->where("puskesmas_id", auth()->user()->puskesmas->id)
             ->orderByDesc("tahun")
-            ->paginate();
+            ->paginate()
+        ;
 
         return response()->view("puskesmas.rencana-usulan-kegiatan.index", compact(
             "rencana_usulan_kegiatan_list"
