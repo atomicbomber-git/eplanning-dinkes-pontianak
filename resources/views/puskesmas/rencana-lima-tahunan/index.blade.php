@@ -65,7 +65,6 @@
                                                 }
                                             })
 "
-
                                 >
                                     @csrf
                                     @method("DELETE")
