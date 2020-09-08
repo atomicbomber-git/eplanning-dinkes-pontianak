@@ -189,10 +189,25 @@ class RencanaPelaksanaanKegiatanTahunanController extends Controller
      * Remove the specified resource from storage.
      *
      * @param RencanaPelaksanaanKegiatanTahunan $rpk_tahunan
-     * @return Response
+     * @return RedirectResponse
      */
     public function destroy(RencanaPelaksanaanKegiatanTahunan $rpk_tahunan)
     {
-        //
+        try {
+            $rpk_tahunan->items()->delete();
+            $rpk_tahunan->delete();
+
+            SessionHelper::flashMessage(
+                __("messages.delete.success"),
+                MessageState::STATE_SUCCESS,
+            );
+        } catch (\Throwable $throwable) {
+            SessionHelper::flashMessage(
+                __("messages.delete.failure"),
+                MessageState::STATE_DANGER,
+            );
+        }
+
+        return back();
     }
 }

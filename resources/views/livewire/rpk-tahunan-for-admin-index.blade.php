@@ -15,7 +15,7 @@
                     <tr>
                         <th class="text-center"> # </th>
                         <th> Puskesmas </th>
-                        <th> Tahun</th>
+                        <th> Tahun </th>
                         <th> Waktu Pembuatan</th>
                         <th> Waktu Penerimaan</th>
                         <th class="text-right"> Total Biaya (Rp.)</th>
