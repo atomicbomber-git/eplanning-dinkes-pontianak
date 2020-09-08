@@ -250,7 +250,7 @@
 
                     <div class="form-group d-flex justify-content-end py-3">
                         <button class="btn btn-lg btn-primary">
-                            Perbarui
+                            Tambah
                         </button>
                     </div>
                 </form>
