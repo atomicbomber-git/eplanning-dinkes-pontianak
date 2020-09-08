@@ -14,11 +14,12 @@
                     <thead class="thead thead-dark">
                     <tr>
                         <th class="text-center"> # </th>
+                        <th> Puskesmas </th>
                         <th> Tahun</th>
                         <th> Waktu Pembuatan</th>
                         <th> Waktu Penerimaan</th>
                         <th class="text-right"> Total Biaya (Rp.)</th>
-                        <th class="text-center"> Aksi</th>
+                        <th class="text-center"> Kendali</th>
                     </tr>
                     </thead>
 
@@ -26,6 +27,7 @@
                     @foreach($rpk_tahunans as $rencana_pelaksanaan_kegiatan_tahunan)
                         <tr>
                             <td class="text-center"> {{ $rpk_tahunans->firstItem() + $loop->index }} </td>
+                            <td> {{ $rencana_pelaksanaan_kegiatan_tahunan->puskesmas->nama }} </td>
                             <td> {{ $rencana_pelaksanaan_kegiatan_tahunan->tahun }} </td>
                             <td> {{ \App\Support\Formatter::fancyDatetime($rencana_pelaksanaan_kegiatan_tahunan->waktu_pembuatan)  }} </td>
                             <td>

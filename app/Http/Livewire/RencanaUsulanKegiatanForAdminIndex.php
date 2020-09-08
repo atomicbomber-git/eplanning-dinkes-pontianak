@@ -12,6 +12,7 @@ class RencanaUsulanKegiatanForAdminIndex extends Component
         return view('livewire.rencana-usulan-kegiatan-for-admin-index', [
             "rencana_usulan_kegiatans" => RencanaUsulanKegiatan::query()
                 ->withTotalKebutuhanAnggaran()
+                ->with("puskesmas:id,nama")
                 ->orderByDesc("tahun")
                 ->paginate()
         ]);

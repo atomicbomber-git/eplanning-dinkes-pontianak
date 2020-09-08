@@ -12,6 +12,7 @@ class RpkTahunanForAdminIndex extends Component
         return view('livewire.rpk-tahunan-for-admin-index', [
             "rpk_tahunans" => RencanaPelaksanaanKegiatanTahunan::query()
                 ->withTotalBiaya()
+                ->with("puskesmas:id,nama")
                 ->orderByDesc("tahun")
                 ->paginate()
         ]);

@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class RencanaUsulanKegiatan extends Model
@@ -14,6 +15,11 @@ class RencanaUsulanKegiatan extends Model
     protected $dates = [
         "waktu_pembuatan",
     ];
+
+    public function puskesmas(): BelongsTo
+    {
+        return $this->belongsTo(Puskesmas::class);
+    }
 
     public function scopeWithTotalKebutuhanAnggaran(Builder $query)
     {

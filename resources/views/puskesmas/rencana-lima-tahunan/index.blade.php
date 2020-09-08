@@ -23,7 +23,7 @@
                         <th> Periode </th>
                         <th> Waktu Pembuatan </th>
                         <th> Waktu Penerimaan </th>
-                        <th class="text-center"> Aksi </th>
+                        <th class="text-center"> Kendali </th>
                     </tr>
                     </thead>
 

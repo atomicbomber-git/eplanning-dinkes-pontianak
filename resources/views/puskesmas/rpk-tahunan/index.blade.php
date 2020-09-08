@@ -24,7 +24,7 @@
                         <th> Waktu Pembuatan</th>
                         <th> Waktu Penerimaan</th>
                         <th class="text-right"> Total Biaya (Rp.)</th>
-                        <th class="text-center"> Aksi</th>
+                        <th class="text-center"> Kendali</th>
                     </tr>
                     </thead>
 
